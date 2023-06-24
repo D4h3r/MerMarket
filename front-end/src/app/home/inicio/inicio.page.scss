@@ -23,7 +23,7 @@
   }
   
   .backgroundLogin {
-    background-color: #73E098;
+    background-color: #cad8ce;
     padding: 10%;
   
     width: 100%;
@@ -99,3 +99,6 @@
     }
   }
   
+  ion-fab-button {
+    --background: #359857;
+  }
