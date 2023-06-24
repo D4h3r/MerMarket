@@ -4,7 +4,11 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: 'home',
-    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
+    loadChildren: () => import('./home/home.module').then(m => m.HomePageModule)
+  },
+  {
+    path: 'home/registro', // Ruta ajustada para incluir la carpeta "registro" dentro de "home"
+    loadChildren: () => import('./home/registro/registro.module').then(m => m.RegistroPageModule)
   },
   {
     path: '',

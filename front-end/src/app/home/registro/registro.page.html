@@ -1,0 +1,87 @@
+<ion-content>
+    <div class="header">
+    <div class="rectangle">
+        <span class="text">Crear Cuenta</span>
+    </div>
+    </div>
+
+    <div class="background">
+    <ion-grid>
+        <ion-row>
+        <ion-col class="ion-text-center">
+            <div class="loginCard">
+            <form>
+                <div class="card-content">
+                <ion-grid>
+    
+                    <ion-row>
+                    <ion-col>
+                        <div class="field-label left-align text-start">Nombre</div>
+                        <ion-item class="loginItem" lines="none">
+                        <ion-input class="loginInput" placeholder="Nombre" type="text"></ion-input>
+                        </ion-item>
+                    </ion-col>
+                    </ion-row>
+    
+                    <ion-row>
+                    <ion-col>
+                        <div class="field-label left-align text-start">Apellido</div>
+                        <ion-item class="loginItem" lines="none">
+                        <ion-input class="loginInput" placeholder="Apellido" type="text"></ion-input>
+                        </ion-item>
+                    </ion-col>
+                    </ion-row>
+    
+                    <ion-row>
+                    <ion-col>
+                        <div class="field-label left-align text-start">RUT</div>
+                        <ion-item class="loginItem" lines="none">
+                        <ion-input class="loginInput" placeholder="RUT" type="text"></ion-input>
+                        </ion-item>
+                    </ion-col>
+                    </ion-row>
+    
+                    <ion-row>
+                    <ion-col>
+                        <div class="field-label left-align text-start">Sexo</div>
+                        <ion-item class="loginItem" lines="none">
+                        <ion-select class="loginInput">
+                            <ion-select-option value="masculino">Masculino</ion-select-option>
+                            <ion-select-option value="femenino">Femenino</ion-select-option>
+                        </ion-select>
+                        </ion-item>
+                    </ion-col>
+                    </ion-row>
+    
+                    <ion-row>
+                    <ion-col>
+                        <div class="field-label left-align text-start">País de Residencia</div>
+                        <ion-item class="loginItem" lines="none">
+                        <ion-select class="loginInput">
+                            <ion-select-option value="chile">Chile</ion-select-option>
+                            <ion-select-option value="argentina">Argentina</ion-select-option>
+                            <ion-select-option value="brasil">Brasil</ion-select-option>
+                            <!-- Agrega más opciones de países según tus necesidades -->
+                        </ion-select>
+                        </ion-item>
+                    </ion-col>
+                    </ion-row>
+    
+                    <ion-row>
+                    <ion-col class="ion-text-center ion-align-items-end">
+                        <ion-button color="light" class="custom-button" (click)="goToHome()">Volver</ion-button>
+                    </ion-col>
+                    <ion-col class="ion-text-center ion-align-items-start">
+                        <ion-button color="light" class="custom-button" routerLink="/home/registro">Continuar</ion-button>
+                    </ion-col>
+                    </ion-row>
+    
+                </ion-grid>
+                </div>
+            </form>
+            </div>
+        </ion-col>
+        </ion-row>
+    </ion-grid>
+    </div>
+</ion-content>
