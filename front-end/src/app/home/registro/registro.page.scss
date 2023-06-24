@@ -12,8 +12,8 @@
 
 .invalid-feedback {
     color: red;
-  }
-  
+}
+
 
 .rectangle {
     width: 90%;
@@ -30,3 +30,35 @@
     align-items: center;
     justify-content: center;
 }
+
+@media (min-width: 768px) {
+    .custom-button {
+    margin-top: 20px;
+    }
+    
+    .field-label {
+    text-align: left;
+    margin-left: 0;
+    }
+}
+
+.text-start {
+    text-align: left;
+}
+
+@media (min-width: 768px) {
+    .ion-text-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    }
+    
+    .ion-align-items-start {
+    align-items: flex-start;
+    }
+    
+    .ion-align-items-end {
+    align-items: flex-end;
+    }
+}
+

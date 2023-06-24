@@ -10,7 +10,7 @@
         <ion-row>
           <ion-col class="ion-text-center">
             <div class="loginCard">
-              <form [formGroup]="formularioRegistroPersonal">
+              <form [formGroup]="formularioRegistroPersonal" (ngSubmit)="enviarRegistro()" #ngForm="ngForm">
                 <div class="card-content">
                   <ion-grid>
   
@@ -42,7 +42,7 @@
                       <ion-col>
                         <div class="field-label left-align text-start">RUT</div>
                         <ion-item class="loginItem" lines="none">
-                          <ion-input class="loginInput" formControlName="rut" placeholder="RUT" type="text"></ion-input>
+                          <ion-input class="loginInput" formControlName="rut" placeholder="RUT" type="text" (blur)="formatRut()"></ion-input>
                         </ion-item>
                         <div *ngIf="formularioRegistroPersonal.controls['rut'].invalid && formularioRegistroPersonal.controls['rut'].errors?.['required']" class="invalid-feedback">
                           Se requiere el RUT del usuario
@@ -51,41 +51,34 @@
                     </ion-row>
   
                     <ion-row>
-                      <ion-col>
+                        <ion-col>
                         <div class="field-label left-align text-start">Sexo</div>
-                        <ion-item class="loginItem" lines="none">
-                          <ion-select class="loginInput" formControlName="sexo">
-                            <ion-select-option value="masculino">Masculino</ion-select-option>
-                            <ion-select-option value="femenino">Femenino</ion-select-option>
-                            <ion-select-option value="undefined">Prefiero no decir</ion-select-option>
-                          </ion-select>
+                        <ion-item class="loginItem" lines="none" (click)="getSexo()">
+                            <ion-text class="textInputDate" [style.color]="formularioRegistroPersonal.controls['sexoUsuario'].invalid && formularioRegistroPersonal.controls['sexoUsuario'].touched ? 'red' : ''">{{ sexoUsuario.value }}</ion-text>
                         </ion-item>
-                      </ion-col>
+                        <div *ngIf="(ngForm.submitted && formularioRegistroPersonal.controls['sexoUsuario'].errors) || (flag == false && formularioRegistroPersonal.controls['sexoUsuario'].errors)" class="invalid-feedback">
+                        <div *ngIf="formularioRegistroPersonal.controls['sexoUsuario'].errors?.['required']">Se requiere el sexo del usuario</div>
+                        </div>
+                    </ion-col>
                     </ion-row>
   
                     <ion-row>
                       <ion-col>
                         <div class="field-label left-align text-start">País de Residencia</div>
-                        <ion-item class="loginItem" lines="none">
-                          <ion-select class="loginInput" formControlName="paisResidencia">
-                            <ion-select-option value="chile">Chile</ion-select-option>
-                            <ion-select-option value="argentina">Argentina</ion-select-option>
-                            <ion-select-option value="brasil">Brasil</ion-select-option>
-                            <!-- Agrega más opciones de países según tus necesidades -->
-                          </ion-select>
+                        <ion-item class="loginItem" lines="none" (click)="getPais()">
+                          <ion-text class="textInputDate" [style.color]="formularioRegistroPersonal.controls['paisUsuario'].invalid && formularioRegistroPersonal.controls['paisUsuario'].touched ? 'red' : ''">{{ paisUsuario.value }}</ion-text>
                         </ion-item>
+                        <div *ngIf="formularioRegistroPersonal.controls['paisUsuario'].invalid && formularioRegistroPersonal.controls['paisUsuario'].errors?.['required']" class="invalid-feedback">
+                          Se requiere el país de residencia del usuario
+                        </div>
                       </ion-col>
                     </ion-row>
   
-                    <ion-row>
-                      <ion-col class="ion-text-center ion-align-items-end">
-                        <ion-button color="light" class="custom-button" (click)="goToHome()">Volver</ion-button>
-                      </ion-col>
-                      <ion-col class="ion-text-center ion-align-items-start">
-                        <ion-button color="light" class="custom-button" type="button" (click)="continuarPrueba()" [disabled]="formularioRegistroPersonal.invalid">Continuar</ion-button>
+                    <ion-row class="centrar" style="margin-top: 20px;">
+                      <ion-col>
+                        <ion-button class="continueButton" expand="block" type="submit">Continuar</ion-button>
                       </ion-col>
                     </ion-row>
-  
                   </ion-grid>
                 </div>
               </form>
