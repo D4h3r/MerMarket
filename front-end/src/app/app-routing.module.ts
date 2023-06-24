@@ -14,12 +14,18 @@ const routes: Routes = [
     path: '',
     redirectTo: 'home',
     pathMatch: 'full'
+<<<<<<< HEAD
   },
   {
     path: 'inicio',
     loadChildren: () => import('./inicio/inicio.module').then( m => m.InicioPageModule)
   },
 
+=======
+  },
+
+
+>>>>>>> 7d696ae14f1b88dd6e1e84ad5c5a5f123e1d0e5d
 ];
 
 @NgModule({
