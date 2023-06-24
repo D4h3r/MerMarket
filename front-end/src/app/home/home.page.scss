@@ -82,3 +82,19 @@
 .text-start {
   text-align: left;
 }
+
+@media (min-width: 768px) {
+  .ion-text-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .ion-align-items-start {
+    align-items: flex-start;
+  }
+  
+  .ion-align-items-end {
+    align-items: flex-end;
+  }
+}
