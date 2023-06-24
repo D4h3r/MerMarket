@@ -1,88 +1,98 @@
 <ion-content>
     <div class="header">
-    <div class="rectangle">
+      <div class="rectangle">
         <span class="text">Crear Cuenta</span>
+      </div>
     </div>
-    </div>
-
+  
     <div class="background">
-    <ion-grid>
+      <ion-grid>
         <ion-row>
-        <ion-col class="ion-text-center">
+          <ion-col class="ion-text-center">
             <div class="loginCard">
-            <form>
+              <form [formGroup]="formularioRegistroPersonal">
                 <div class="card-content">
-                <ion-grid>
-    
+                  <ion-grid>
+  
                     <ion-row>
-                    <ion-col>
+                      <ion-col>
                         <div class="field-label left-align text-start">Nombre</div>
                         <ion-item class="loginItem" lines="none">
-                        <ion-input class="loginInput" placeholder="Nombre" type="text"></ion-input>
+                          <ion-input class="loginInput" formControlName="nombre" placeholder="Nombre" type="text"></ion-input>
                         </ion-item>
-                    </ion-col>
+                        <div *ngIf="formularioRegistroPersonal.controls['nombre'].invalid && formularioRegistroPersonal.controls['nombre'].errors?.['required']" class="invalid-feedback">
+                          Se requiere el nombre del usuario
+                        </div>
+                      </ion-col>
                     </ion-row>
-    
+  
                     <ion-row>
-                    <ion-col>
+                      <ion-col>
                         <div class="field-label left-align text-start">Apellido</div>
                         <ion-item class="loginItem" lines="none">
-                        <ion-input class="loginInput" placeholder="Apellido" type="text"></ion-input>
+                          <ion-input class="loginInput" formControlName="apellido" placeholder="Apellido" type="text"></ion-input>
                         </ion-item>
-                    </ion-col>
+                        <div *ngIf="formularioRegistroPersonal.controls['apellido'].invalid && formularioRegistroPersonal.controls['apellido'].errors?.['required']" class="invalid-feedback">
+                          Se requiere el apellido del usuario
+                        </div>
+                      </ion-col>
                     </ion-row>
-    
+  
                     <ion-row>
-                    <ion-col>
+                      <ion-col>
                         <div class="field-label left-align text-start">RUT</div>
                         <ion-item class="loginItem" lines="none">
-                        <ion-input class="loginInput" placeholder="RUT" type="text"></ion-input>
+                          <ion-input class="loginInput" formControlName="rut" placeholder="RUT" type="text"></ion-input>
                         </ion-item>
-                    </ion-col>
+                        <div *ngIf="formularioRegistroPersonal.controls['rut'].invalid && formularioRegistroPersonal.controls['rut'].errors?.['required']" class="invalid-feedback">
+                          Se requiere el RUT del usuario
+                        </div>
+                      </ion-col>
                     </ion-row>
-    
+  
                     <ion-row>
-                    <ion-col>
+                      <ion-col>
                         <div class="field-label left-align text-start">Sexo</div>
                         <ion-item class="loginItem" lines="none">
-                        <ion-select class="loginInput">
+                          <ion-select class="loginInput" formControlName="sexo">
                             <ion-select-option value="masculino">Masculino</ion-select-option>
                             <ion-select-option value="femenino">Femenino</ion-select-option>
                             <ion-select-option value="undefined">Prefiero no decir</ion-select-option>
-                        </ion-select>
+                          </ion-select>
                         </ion-item>
-                    </ion-col>
+                      </ion-col>
                     </ion-row>
-    
+  
                     <ion-row>
-                    <ion-col>
+                      <ion-col>
                         <div class="field-label left-align text-start">País de Residencia</div>
                         <ion-item class="loginItem" lines="none">
-                        <ion-select class="loginInput">
+                          <ion-select class="loginInput" formControlName="paisResidencia">
                             <ion-select-option value="chile">Chile</ion-select-option>
                             <ion-select-option value="argentina">Argentina</ion-select-option>
                             <ion-select-option value="brasil">Brasil</ion-select-option>
                             <!-- Agrega más opciones de países según tus necesidades -->
-                        </ion-select>
+                          </ion-select>
                         </ion-item>
-                    </ion-col>
+                      </ion-col>
                     </ion-row>
-    
+  
                     <ion-row>
-                    <ion-col class="ion-text-center ion-align-items-end">
+                      <ion-col class="ion-text-center ion-align-items-end">
                         <ion-button color="light" class="custom-button" (click)="goToHome()">Volver</ion-button>
-                    </ion-col>
-                    <ion-col class="ion-text-center ion-align-items-start">
-                        <ion-button color="light" class="custom-button" routerLink="/home/registro">Continuar</ion-button>
-                    </ion-col>
+                      </ion-col>
+                      <ion-col class="ion-text-center ion-align-items-start">
+                        <ion-button color="light" class="custom-button" type="button" (click)="continuarPrueba()" [disabled]="formularioRegistroPersonal.invalid">Continuar</ion-button>
+                      </ion-col>
                     </ion-row>
-    
-                </ion-grid>
+  
+                  </ion-grid>
                 </div>
-            </form>
+              </form>
             </div>
-        </ion-col>
+          </ion-col>
         </ion-row>
-    </ion-grid>
+      </ion-grid>
     </div>
-</ion-content>
+  </ion-content>
+  
