@@ -1,27 +1,84 @@
-#container {
+.header {
+  background-color: #359857;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rectangle {
+  width: 90%;
+  max-width: 1080px;
   text-align: center;
-
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
+  color: white;
+  font-size: 10vw;
+  font-weight: bold;
 }
 
-#container strong {
-  font-size: 20px;
-  line-height: 26px;
+.mer {
+  color: #8B0000;
 }
 
-#container p {
-  font-size: 16px;
-  line-height: 22px;
-
-  color: #8c8c8c;
-
-  margin: 0;
+.text {
+  color: white;
 }
 
-#container a {
-  text-decoration: none;
+.backgroundLogin {
+  background-color: #73E098;
+  padding: 10%;
+
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+
+.loginCard img {
+  display: block;
+  margin: 0 auto;
+}
+
+.fontInicio {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333333;
+}
+
+.custom-button {
+  --background: #d9d9d9;
+  --color: #333333;
+  margin-top: 10px;
+  font-weight: bold;
+
+}
+
+@media (min-width: 768px) {
+  .custom-button {
+    margin-top: 20px;
+  }
+  
+  .field-label {
+    text-align: left;
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 767px) {
+  .backgroundLogin {
+    padding: 10px;
+  }
+}
+
+.forgot-password {
+  margin-top: 10px;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.forgot-password-link {
+  color: rgb(0, 0, 0);
+}
+
+
+.text-start {
+  text-align: left;
 }
