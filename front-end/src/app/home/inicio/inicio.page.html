@@ -1,0 +1,68 @@
+<ion-content>
+  <div class="header">
+    <div class="rectangle">
+      <span class="mer">M</span><span class="text">er</span>
+      <span class="mer">M</span><span class="text">arket</span>
+    </div>
+  </div>
+  
+  <div class="backgroundLogin">
+    <ion-grid>
+      <ion-row>
+        <ion-col class="ion-text-center">
+          <div class="loginCard">
+            <img src="../../assets/resources/bgCardLogo.png">
+            <form>
+              <div class="card-content">
+                <ion-grid>
+
+                  <ion-row>
+                    <ion-col>
+                      <div class="field-label left-align text-start">Correo</div>
+                      <ion-item class="loginItem" lines="none">
+                        <ion-icon name="person" style="margin-right:10px;color:rgb(27, 36, 69);"></ion-icon>
+                        <ion-input class="loginInput" placeholder="Email de usuario" type="text">
+                        </ion-input>
+                      </ion-item>
+                    </ion-col>
+                  </ion-row>
+
+                  <ion-row>
+                    <ion-col></ion-col> 
+                  </ion-row>
+                  <ion-row>
+                    <ion-col>
+                      <div class="field-label left-align text-start">Contraseña</div>
+                      <ion-item class="loginItem" lines="none">
+                        <ion-icon name="lock-closed" style="margin-right:10px;color:rgb(27, 36, 69);"></ion-icon>
+                        <ion-input class="loginInput" placeholder="Contraseña" type="password">
+                        </ion-input>
+                      </ion-item>
+                    </ion-col>
+                  </ion-row>
+                  
+                  <ion-row>
+                    <ion-col class="ion-text-center ion-align-items-end">
+                      <ion-button color="light" class="custom-button">Iniciar sesión</ion-button>
+                    </ion-col>
+                    <ion-col class="ion-text-center ion-align-items-start">
+                      <ion-button color="light" class="custom-button" routerLink="/home/registro">Registrarse</ion-button>
+                    </ion-col>
+                  </ion-row>
+                  
+                  <ion-row>
+                    <ion-col class="ion-text-center">
+                      <div class="forgot-password">
+                        <a href="#" class="forgot-password-link">Olvidé mi contraseña</a>
+                      </div>
+                    </ion-col>
+                  </ion-row>
+                </ion-grid>
+              </div>
+            </form>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+</ion-content>
