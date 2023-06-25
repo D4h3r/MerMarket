@@ -21,7 +21,7 @@ export class InicioPage implements OnInit {
     }
   }
 
-  onIonInfinite(ev: InfiniteScrollCustomEvent) {
+  onIonInfinite(ev: any) {
     this.generateItems();
     setTimeout(() => {
       (ev as InfiniteScrollCustomEvent).target.complete();
