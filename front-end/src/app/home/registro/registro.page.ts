@@ -25,12 +25,12 @@ export class RegistroPage implements OnInit {
 
   sexoUsuario = {
     value: 'Sexo',
-    color: '#D9D9D9',
+    color: '#9F9A9A',
   };
 
   paisUsuario = {
     value: 'Pais de residencia',
-    color: '#D9D9D9',
+    color: '#9F9A9A',
   };
 
   public flag = true;
@@ -52,9 +52,28 @@ export class RegistroPage implements OnInit {
     this.router.navigate(['/home']);
   }
 
-  continuarPrueba() {
-    this.mostrarFormularioFoto();
+  continuarPrueba(n: number) {
+    if (n === 1) {
+      if (
+        this.formularioRegistroPersonal.value.nombre !== "" &&
+        this.formularioRegistroPersonal.value.apellido !== "" &&
+        this.formularioRegistroPersonal.value.rut !== "" &&
+        this.formularioRegistroPersonal.value.sexoUsuario !== "" &&
+        this.formularioRegistroPersonal.value.paisUsuario !== ""
+      ) {
+        this.status = n;
+        this.flag = true;
+      } else {
+        this.flag = false;
+      }
+    } else {
+      this.status = n;
+      this.flag = true;
+    }
+
+    console.log("Funciona la función continuarPrueba");
   }
+
 
   mostrarFormularioFoto() {
     this.mostrar = !this.mostrar;
@@ -139,16 +158,16 @@ export class RegistroPage implements OnInit {
 
   getSexo() {
     this.pickerOpts = [];
-    let obj = {
+    const masculinoOption = {
       text: 'Masculino',
       value: 'Masculino',
     };
-    let obj2 = {
+    const femeninoOption = {
       text: 'Femenino',
       value: 'Femenino',
     };
-    this.pickerOpts.push(obj);
-    this.pickerOpts.push(obj2);
+    this.pickerOpts.push(masculinoOption);
+    this.pickerOpts.push(femeninoOption);
 
     this.openPicker('sexo');
   }
