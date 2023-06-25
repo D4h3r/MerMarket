@@ -11,7 +11,7 @@
           <ion-col class="ion-text-center">
             <div class="loginCard">
               <form [formGroup]="formularioRegistroPersonal" (ngSubmit)="enviarRegistro()" #ngForm="ngForm">
-                <div class="card-content">
+                <div *ngIf="this.status == 0">
                   <ion-grid>
   
                     <ion-row>
@@ -20,11 +20,12 @@
                         <ion-item class="loginItem" lines="none">
                           <ion-input class="loginInput" formControlName="nombre" placeholder="Nombre" type="text"></ion-input>
                         </ion-item>
-                        <div *ngIf="formularioRegistroPersonal.controls['nombre'].invalid && formularioRegistroPersonal.controls['nombre'].errors?.['required']" class="invalid-feedback">
-                          Se requiere el nombre del usuario
-                        </div>
                       </ion-col>
                     </ion-row>
+                    <div *ngIf="ngForm.submitted && f['nombre'].errors || flag == false && f['nombre'].errors" class="invalid-feedback">
+                      <div *ngIf="f['nombre'].errors['required']">Se requiere el nombre del usuario</div>
+                    </div>
+                    <div *ngIf="!(ngForm.submitted && f['nombre'].errors)"></div>
   
                     <ion-row>
                       <ion-col>
@@ -32,11 +33,13 @@
                         <ion-item class="loginItem" lines="none">
                           <ion-input class="loginInput" formControlName="apellido" placeholder="Apellido" type="text"></ion-input>
                         </ion-item>
-                        <div *ngIf="formularioRegistroPersonal.controls['apellido'].invalid && formularioRegistroPersonal.controls['apellido'].errors?.['required']" class="invalid-feedback">
-                          Se requiere el apellido del usuario
-                        </div>
                       </ion-col>
                     </ion-row>
+                    <div *ngIf="ngForm.submitted && f['apellido'].errors || flag == false && f['apellido'].errors" class="invalid-feedback">
+                      <div *ngIf="f['apellido'].errors['required']">Se requiere el apellido del usuario</div>
+                    </div>
+                    <div *ngIf="!(ngForm.submitted && f['apellido'].errors)"></div>
+                    
   
                     <ion-row>
                       <ion-col>
@@ -44,39 +47,47 @@
                         <ion-item class="loginItem" lines="none">
                           <ion-input class="loginInput" formControlName="rut" placeholder="RUT" type="text" (blur)="formatRut()"></ion-input>
                         </ion-item>
-                        <div *ngIf="formularioRegistroPersonal.controls['rut'].invalid && formularioRegistroPersonal.controls['rut'].errors?.['required']" class="invalid-feedback">
-                          Se requiere el RUT del usuario
+                      </ion-col>
+                    </ion-row>
+                    <div *ngIf="ngForm.submitted && f['rut'].errors || flag == false && f['rut'].errors" class="invalid-feedback">
+                      <div *ngIf="f['rut'].errors['required']">Se requiere el rut del usuario</div>
+                    </div>
+                    <div *ngIf="!(ngForm.submitted && f['rut'].errors)"></div>
+  
+                    <ion-row>
+                      <ion-col>
+                        <div class="field-label left-align text-start">Sexo</div>
+                        <ion-item class="loginItem" lines="none" (click)="getSexo()">
+                          <ion-text class="textInputDate" [style.color]="sexoUsuario.color">{{ formularioRegistroPersonal.value.sexoUsuario }}</ion-text>
+                        </ion-item>
+                        <div *ngIf="(ngForm.submitted && formularioRegistroPersonal.controls['sexoUsuario'].errors) || (flag == false && formularioRegistroPersonal.controls['sexoUsuario'].errors)"
+                          class="invalid-feedback error">
+                          <div *ngIf="formularioRegistroPersonal.controls['sexoUsuario'].errors?.['required']">Se requiere el sexo del usuario</div>
                         </div>
                       </ion-col>
                     </ion-row>
-  
-                    <ion-row>
-                        <ion-col>
-                        <div class="field-label left-align text-start">Sexo</div>
-                        <ion-item class="loginItem" lines="none" (click)="getSexo()">
-                            <ion-text class="textInputDate" [style.color]="formularioRegistroPersonal.controls['sexoUsuario'].invalid && formularioRegistroPersonal.controls['sexoUsuario'].touched ? 'red' : ''">{{ sexoUsuario.value }}</ion-text>
-                        </ion-item>
-                        <div *ngIf="(ngForm.submitted && formularioRegistroPersonal.controls['sexoUsuario'].errors) || (flag == false && formularioRegistroPersonal.controls['sexoUsuario'].errors)" class="invalid-feedback">
-                        <div *ngIf="formularioRegistroPersonal.controls['sexoUsuario'].errors?.['required']">Se requiere el sexo del usuario</div>
-                        </div>
-                    </ion-col>
-                    </ion-row>
-  
+                    
                     <ion-row>
                       <ion-col>
                         <div class="field-label left-align text-start">País de Residencia</div>
                         <ion-item class="loginItem" lines="none" (click)="getPais()">
-                          <ion-text class="textInputDate" [style.color]="formularioRegistroPersonal.controls['paisUsuario'].invalid && formularioRegistroPersonal.controls['paisUsuario'].touched ? 'red' : ''">{{ paisUsuario.value }}</ion-text>
+                          <ion-text class="textInputDate" [style.color]="paisUsuario.color">{{ formularioRegistroPersonal.value.paisUsuario }}</ion-text>
                         </ion-item>
-                        <div *ngIf="formularioRegistroPersonal.controls['paisUsuario'].invalid && formularioRegistroPersonal.controls['paisUsuario'].errors?.['required']" class="invalid-feedback">
-                          Se requiere el país de residencia del usuario
-                        </div>
                       </ion-col>
                     </ion-row>
-  
-                    <ion-row class="centrar" style="margin-top: 20px;">
-                      <ion-col>
-                        <ion-button class="continueButton" expand="block" type="submit">Continuar</ion-button>
+                    <div *ngIf="ngForm.submitted && formularioRegistroPersonal.controls['paisUsuario'].errors || flag == false && formularioRegistroPersonal.controls['paisUsuario'].errors"
+                      class="invalid-feedback error">
+                      <div *ngIf="formularioRegistroPersonal.controls['paisUsuario'].errors?.['required']">Se requiere el país de residencia del usuario</div>
+                    </div>
+                    
+                    
+
+                    <ion-row>
+                      <ion-col class="ion-text-center ion-align-items-end">
+                        <ion-button color="light" class="custom-button" routerLink="../../home">Volver</ion-button>
+                      </ion-col>
+                      <ion-col class="ion-text-center ion-align-items-start">
+                        <ion-button color="light" class="custom-button" type="submit" (click)="continuarPrueba(1)">Continuar</ion-button>
                       </ion-col>
                     </ion-row>
                   </ion-grid>
