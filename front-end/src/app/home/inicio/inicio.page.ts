@@ -8,7 +8,7 @@ import { InfiniteScrollCustomEvent } from '@ionic/angular';
 })
 export class InicioPage implements OnInit {
 
-  items = [];
+  items = ["Hola","putas"];
 
   ngOnInit() {
     this.generateItems();
@@ -21,7 +21,7 @@ export class InicioPage implements OnInit {
     }
   }
 
-  onIonInfinite(ev) {
+  onIonInfinite(ev: InfiniteScrollCustomEvent) {
     this.generateItems();
     setTimeout(() => {
       (ev as InfiniteScrollCustomEvent).target.complete();
