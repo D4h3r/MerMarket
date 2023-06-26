@@ -1,0 +1,20 @@
+{"usuarios": [
+    {
+        "nombre": "Joselindo",
+        "apellido": "Rodriguez",
+        "correo": "joselindorodriguez@test.test",
+        "contraseña": "123"
+    },
+    {
+        "nombre": "Rodomiro",
+        "apellido": "Sanchez",
+        "correo": "rodomirosanchez@test.test",
+        "contraseña": "123"
+    },
+    {
+        "nombre": "Pedro",
+        "apellido": "Gonzales",
+        "correo": "pedrogonzales@test.test",
+        "contraseña": "123"
+    }      
+]}

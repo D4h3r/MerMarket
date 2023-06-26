@@ -71,6 +71,7 @@ export class RegistroPage implements OnInit {
       this.flag = true;
     }
 
+
     console.log("Funciona la función continuarPrueba");
   }
 

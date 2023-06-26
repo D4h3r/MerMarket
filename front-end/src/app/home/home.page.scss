@@ -24,8 +24,7 @@
 
 .backgroundLogin {
   background-color: #73E098;
-  padding: 10%;
-
+  padding: 10rem; /* Utiliza rem en lugar de porcentajes */
   width: 100%;
   height: 100%;
   box-sizing: border-box;
@@ -62,7 +61,7 @@
   }
 }
 
-@media (max-width: 767px) {
+@media (max-width: 1920px) {
   .backgroundLogin {
     padding: 10px;
   }
