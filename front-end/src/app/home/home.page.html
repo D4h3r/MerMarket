@@ -11,8 +11,8 @@
       <ion-row>
         <ion-col class="ion-text-center">
           <div class="loginCard">
+            <form [formGroup]="validationFormUser" (ngSubmit)="loginUser(validationFormUser.value)">
             <img src="../../assets/resources/bgCardLogo.png">
-            <form>
               <div class="card-content">
                 <ion-grid>
 
@@ -26,6 +26,13 @@
                       </ion-item>
                     </ion-col>
                   </ion-row>
+                  <div>
+                    <ng-container *ngFor="let validation of validationUserMessage.email">
+                      <div class="error_message" *ngIf="validationFormUser.get('email')?.hasError(validation.type) && (validationFormUser.get('email')?.dirty || validationFormUser.get('email')?.touched)">
+                        {{validation.message}}
+                          </div>
+                    </ng-container>
+                </div>
 
                   <ion-row>
                     <ion-col></ion-col> 
@@ -40,6 +47,13 @@
                       </ion-item>
                     </ion-col>
                   </ion-row>
+                  <div>
+                    <ng-container *ngFor="let validation of validationUserMessage.password">
+                      <div class="error_message" *ngIf="validationFormUser.get('password')?.hasError(validation.type) && (validationFormUser.get('password')?.dirty || validationFormUser.get('password')?.touched)">
+                        {{validation.message}}
+                        </div>
+                    </ng-container>
+                </div>
                   
                   <ion-row>
                     <ion-col class="ion-text-center ion-align-items-end">

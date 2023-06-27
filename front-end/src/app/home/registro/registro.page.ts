@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PickerController, PickerOptions } from '@ionic/angular';
-import { validate, format } from 'rut.js';
+import { validate, format } from '../../../../node_modules/rut.js';
 import { COUNTRY_REGION } from '../../../assets/resources/country_data/paises';
 
 @Component({
@@ -11,6 +11,14 @@ import { COUNTRY_REGION } from '../../../assets/resources/country_data/paises';
   styleUrls: ['./registro.page.scss'],
 })
 export class RegistroPage implements OnInit {
+
+  public flag = true;
+  public mostrar: boolean = false;
+  public rutValidated = true;
+  public status = 0;
+  public flagImagen = true;
+
+
   formularioRegistroPersonal: FormGroup = this.formBuilder.group({
     nombre: ['', Validators.required],
     apellido: ['', Validators.required],
@@ -33,10 +41,7 @@ export class RegistroPage implements OnInit {
     color: '#9F9A9A',
   };
 
-  public flag = true;
-  public mostrar: boolean = false;
-  public rutValidated = true;
-  public status = 0;
+
 
   constructor(
     private router: Router,
@@ -57,7 +62,7 @@ export class RegistroPage implements OnInit {
       if (
         this.formularioRegistroPersonal.value.nombre !== "" &&
         this.formularioRegistroPersonal.value.apellido !== "" &&
-        this.formularioRegistroPersonal.value.rut !== "" &&
+        this.formularioRegistroPersonal.value.rutValidated !== "" &&
         this.formularioRegistroPersonal.value.sexoUsuario !== "" &&
         this.formularioRegistroPersonal.value.paisUsuario !== ""
       ) {
@@ -70,6 +75,7 @@ export class RegistroPage implements OnInit {
       this.status = n;
       this.flag = true;
     }
+
 
     console.log("Funciona la función continuarPrueba");
   }
@@ -102,14 +108,11 @@ export class RegistroPage implements OnInit {
     }
   }
 
-  formatRut() {
-    const rutValidated = validate(this.formularioRegistroPersonal.value.rut); // Valida el rut
-    if (rutValidated) {
-      const rut = format(this.formularioRegistroPersonal.value.rut); // Formatea el rut
-      this.formularioRegistroPersonal.patchValue({ rut });
-    } else {
-      // Realiza acciones cuando el rut no es válido
-    }
+  formatRut()
+  {
+    this.rutValidated = validate(this.formularioRegistroPersonal.value.rut);
+    let rut = format(this.formularioRegistroPersonal.value.rut);
+    this.formularioRegistroPersonal.patchValue({ rut });
   }
 
   async openPicker(value: string) {
