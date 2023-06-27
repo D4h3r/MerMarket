@@ -1,11 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore/'; 
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { Router } from '@angular/router';
 import { NavController } from '@ionic/angular';
 import { AuthService } from 'src/app/services/auth.service';
-
-
 
 @Component({
   selector: 'app-home',
@@ -46,33 +43,30 @@ export class HomePage implements OnInit {
     });
   }
 
-  loginUser(value: { email: any; password: any; }) {
-    console.log('Iniciando sesión...');
-    try {
-      this.authService.loginFireauth(value).then((resp) => {
-        console.log(resp);
-        if (resp.user) {
-          this.authService.setUser({
-            username: resp.user.displayName,
-            uid: resp.user.uid
-          });
+  loginUser() {
+    const email = this.validationFormUser.value.email;
+    const password = this.validationFormUser.value.password;
 
-          const userProfile = this.firestore.collection('profile').doc(resp.user.uid);
-          userProfile.get().subscribe((result: { exists: any; }) => {
-            if (result.exists) {
+    this.authService.loginFireauth({ email, password })
+      .then((result) => {
+        console.log(result);
+        if (result.user) {
+          const userProfile = this.firestore.collection('profile').doc(result.user.uid);
+          userProfile.get().subscribe((snapshot) => {
+            if (snapshot.exists) {
               this.nav.navigateForward(['../home/inicio']);
             } else {
-              this.firestore.doc(`profile/${this.authService.getUID()}`).set({
-                name: resp.user.displayName,
-                email: resp.user.email
+              this.firestore.doc(`profile/${result.user.uid}`).set({
+                name: result.user.displayName,
+                email: result.user.email
               });
               this.nav.navigateForward(['uploadimage']);
             }
           });
         }
+      })
+      .catch((error) => {
+        console.log(error);
       });
-    } catch (err) {
-      console.log(err);
-    }
   }
 }
