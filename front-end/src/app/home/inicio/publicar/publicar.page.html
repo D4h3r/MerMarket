@@ -57,10 +57,11 @@
                     <ion-col>
                       <div class="field-label left-align text-start">Descripcion</div>
                       <ion-item class="loginItem" lines="none">
-                        <ion-input class="loginInput" formControlName="descripcion" placeholder="Descripcion" type="text"></ion-input>
+                        <ion-textarea class="descripcion" formControlName="descripcion" placeholder="Descripcion"></ion-textarea>
                       </ion-item>
                     </ion-col>
                   </ion-row>
+                  
                   <div *ngIf="ngForm.submitted && f['descripcion'].errors || flag == false && f['descripcion'].errors" class="invalid-feedback">
                     <div *ngIf="f['descripcion'].errors['required']">Se requiere el apellido del usuario</div>
                   </div>

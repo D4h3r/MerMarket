@@ -66,3 +66,9 @@
   }
 }
 
+.descripcion {
+  min-height: 122px; /* Ajusta la altura según tus necesidades */
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+  resize: vertical;
+}
