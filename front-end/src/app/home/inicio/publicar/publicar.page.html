@@ -1,0 +1,85 @@
+<ion-content>
+  <div class="header">
+    <div class="rectangle">
+      <span class="text">Crear Publicacion</span>
+    </div>
+  </div>
+
+  <div class="background">
+    <ion-grid>
+      <ion-row>
+        <ion-col class="ion-text-center">
+          <div class="loginCard">
+            <form [formGroup]="formularioPublicacion" (ngSubmit)="enviarRegistro()" #ngForm="ngForm">
+              <div *ngIf="this.status == 0">
+                <ion-grid>
+                  <ion-row>
+                    <ion-col>
+                      <div class="field-label left-align text-start">Nombre del producto</div>
+                      <ion-item class="loginItem" lines="none">
+                        <ion-input class="loginInput" formControlName="nombre" placeholder="Nombre" type="text"></ion-input>
+                      </ion-item>
+                    </ion-col>
+                  </ion-row>
+                  <div *ngIf="ngForm.submitted && f['nombre'].errors || flag == false && f['nombre'].errors" class="invalid-feedback">
+                    <div *ngIf="f['nombre'].errors['required']">Se requiere el nombre del usuario</div>
+                  </div>
+                  <div *ngIf="!(ngForm.submitted && f['nombre'].errors)"></div>
+
+                  <ion-row>
+                    <ion-col>
+                      <div class="field-label left-align text-start">Precio</div>
+                      <ion-item class="loginItem" lines="none">
+                        <ion-input class="loginInput" formControlName="precio" placeholder="Precio" type="text"></ion-input>
+                      </ion-item>
+                    </ion-col>
+                  </ion-row>
+                  <div *ngIf="ngForm.submitted && f['precio'].errors || flag == false && f['precio'].errors" class="invalid-feedback">
+                    <div *ngIf="f['precio'].errors['required']">Se requiere el apellido del usuario</div>
+                  </div>
+                  <div *ngIf="!(ngForm.submitted && f['precio'].errors)"></div>
+
+                  <ion-row>
+                    <ion-col>
+                      <div class="field-label left-align text-start">Estado</div>
+                      <ion-item class="loginItem" lines="none" (click)="getEstado()">
+                        <ion-text class="textInputDate">{{ formularioPublicacion.value.sexoUsuario }}</ion-text>
+                      </ion-item>
+                      <div *ngIf="(ngForm.submitted && formularioPublicacion.controls['estado'].errors) || (flag == false && formularioPublicacion.controls['estado'].errors)"
+                        class="invalid-feedback error">
+                        <div *ngIf="formularioPublicacion.controls['estado'].errors?.['required']">Se requiere el sexo del usuario</div>
+                      </div>
+                    </ion-col>
+                  </ion-row>
+                  
+
+                  <ion-row>
+                    <ion-col>
+                      <div class="field-label left-align text-start">Descripcion</div>
+                      <ion-item class="loginItem" lines="none">
+                        <ion-input class="loginInput" formControlName="descripcion" placeholder="Descripcion" type="text"></ion-input>
+                      </ion-item>
+                    </ion-col>
+                  </ion-row>
+                  <div *ngIf="ngForm.submitted && f['descripcion'].errors || flag == false && f['descripcion'].errors" class="invalid-feedback">
+                    <div *ngIf="f['descripcion'].errors['required']">Se requiere el apellido del usuario</div>
+                  </div>
+                  <div *ngIf="!(ngForm.submitted && f['descripcion'].errors)"></div>
+                                                
+                  <ion-row>
+                    <ion-col class="ion-text-center ion-align-items-end">
+                      <ion-button color="light" class="custom-button" routerLink="/home/inicio">Volver</ion-button>
+                    </ion-col>
+                    <ion-col class="ion-text-center ion-align-items-start">
+                      <ion-button color="light" class="custom-button" type="submit" (click)="continuarPrueba(1)">Continuar</ion-button>
+                    </ion-col>
+                  </ion-row>
+                </ion-grid>
+              </div>
+            </form>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+</ion-content>
