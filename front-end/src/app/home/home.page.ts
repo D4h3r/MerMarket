@@ -46,27 +46,18 @@ export class HomePage implements OnInit {
   loginUser() {
     const email = this.validationFormUser.value.email;
     const password = this.validationFormUser.value.password;
-
+  
     this.authService.loginFireauth({ email, password })
       .then((result) => {
         console.log(result);
         if (result.user) {
-          const userProfile = this.firestore.collection('profile').doc(result.user.uid);
-          userProfile.get().subscribe((snapshot) => {
-            if (snapshot.exists) {
-              this.nav.navigateForward(['../home/inicio']);
-            } else {
-              this.firestore.doc(`profile/${result.user.uid}`).set({
-                name: result.user.displayName,
-                email: result.user.email
-              });
-              this.nav.navigateForward(['uploadimage']);
-            }
-          });
+          this.nav.navigateForward(['home/inicio']);
         }
       })
       .catch((error) => {
         console.log(error);
       });
   }
+  
+  
 }
