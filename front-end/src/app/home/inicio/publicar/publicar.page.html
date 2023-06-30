@@ -22,7 +22,7 @@
                     </ion-col>
                   </ion-row>
                   <div *ngIf="ngForm.submitted && f['nombre'].errors || flag == false && f['nombre'].errors" class="invalid-feedback">
-                    <div *ngIf="f['nombre'].errors['required']">Se requiere el nombre del usuario</div>
+                    <div *ngIf="f['nombre'].errors['required']">Se requiere el nombre del producto</div>
                   </div>
                   <div *ngIf="!(ngForm.submitted && f['nombre'].errors)"></div>
 
@@ -35,7 +35,7 @@
                     </ion-col>
                   </ion-row>
                   <div *ngIf="ngForm.submitted && f['precio'].errors || flag == false && f['precio'].errors" class="invalid-feedback">
-                    <div *ngIf="f['precio'].errors['required']">Se requiere el apellido del usuario</div>
+                    <div *ngIf="f['precio'].errors['required']">Se requiere el precio del producto</div>
                   </div>
                   <div *ngIf="!(ngForm.submitted && f['precio'].errors)"></div>
 
@@ -47,7 +47,7 @@
                       </ion-item>
                       <div *ngIf="(ngForm.submitted && formularioPublicacion.controls['estado'].errors) || (flag == false && formularioPublicacion.controls['estado'].errors)"
                         class="invalid-feedback error">
-                        <div *ngIf="formularioPublicacion.controls['estado'].errors?.['required']">Se requiere el sexo del usuario</div>
+                        <div *ngIf="formularioPublicacion.controls['estado'].errors?.['required']">Se requiere el estado del producto</div>
                       </div>
                     </ion-col>
                   </ion-row>
@@ -63,7 +63,7 @@
                   </ion-row>
                   
                   <div *ngIf="ngForm.submitted && f['descripcion'].errors || flag == false && f['descripcion'].errors" class="invalid-feedback">
-                    <div *ngIf="f['descripcion'].errors['required']">Se requiere el apellido del usuario</div>
+                    <div *ngIf="f['descripcion'].errors['required']">Se requiere la descripcion del producto</div>
                   </div>
                   <div *ngIf="!(ngForm.submitted && f['descripcion'].errors)"></div>
                                                 
