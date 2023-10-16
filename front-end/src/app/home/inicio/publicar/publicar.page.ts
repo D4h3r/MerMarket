@@ -106,19 +106,19 @@ export class PublicarPage implements OnInit {
     this.pickerOpts = [];
     const porvencerOption = {
       text: 'Por Vencer',
-      value: 'porvencer',
+      value: 'Por vencer',
     };
     const vencidoOption = {
       text: 'Vencido',
-      value: 'vencido',
+      value: 'Vencido',
     };
     const rotoOption = {
       text: 'Roto',
-      value: 'roto',
+      value: 'Roto',
     };
     const defectuosoOption = {
       text: 'Defectuoso',
-      value: 'defectuoso',
+      value: 'Defectuoso',
     };
     this.pickerOpts.push(porvencerOption);
     this.pickerOpts.push(vencidoOption);

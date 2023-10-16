@@ -43,7 +43,7 @@
                     <ion-col>
                       <div class="field-label left-align text-start">Estado</div>
                       <ion-item class="loginItem" lines="none" (click)="getEstado()">
-                        <ion-text class="textInputDate">{{ formularioPublicacion.value.sexoUsuario }}</ion-text>
+                        <ion-text class="textInputDate">{{ formularioPublicacion.value.estado }}</ion-text>
                       </ion-item>
                       <div *ngIf="(ngForm.submitted && formularioPublicacion.controls['estado'].errors) || (flag == false && formularioPublicacion.controls['estado'].errors)"
                         class="invalid-feedback error">
