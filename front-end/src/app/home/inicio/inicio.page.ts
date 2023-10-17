@@ -27,7 +27,7 @@ export class InicioPage implements OnInit {
   }
 
   cerrarSesion() {
-    // Llama al servicio de autenticación para cerrar la sesión y realiza cualquier limpieza necesaria.
+    
     this.auth.cerrarSesion()
       .then(() => {
         this.router.navigate(['/home']);
