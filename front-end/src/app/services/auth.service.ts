@@ -38,4 +38,20 @@ export class AuthService {
         .catch(error => reject(error));
     });
     }
+
+    cerrarSesion(): Promise<void> {
+        return new Promise<void>((resolve, reject) => {
+          firebase.auth().signOut() // Utiliza el método de Firebase para cerrar sesión
+            .then(() => {
+              // Realiza cualquier limpieza adicional, como borrar tokens de usuario o datos de sesión.
+              // Por ejemplo, puedes establecer this.user = undefined si lo usas para almacenar el estado del usuario.
+              this.user = undefined;
+              resolve();
+            })
+            .catch(error => {
+              // Maneja cualquier error que pueda ocurrir al cerrar la sesión.
+              reject(error);
+            });
+        });
+      }
 }
