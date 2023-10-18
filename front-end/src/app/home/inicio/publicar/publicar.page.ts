@@ -84,6 +84,12 @@ export class PublicarPage implements OnInit {
                 });
                 break;
               }
+              case 'categoria': {
+                this.formularioPublicacion.patchValue({
+                  categoria: selectedOption,
+                });
+                break;
+              }
               default:
                 break;
             }
@@ -100,6 +106,37 @@ export class PublicarPage implements OnInit {
 
     const picker = await this.pickerController.create(pickerOpts);
     picker.present();
+  }
+
+  getCategoria() {
+    this.pickerOpts = [];
+    const comidaOption = {
+      text: 'Comida',
+      value: 'comida',
+    };
+    const construccionOption = {
+      text: 'Materiales de construccion',
+      value: 'construccion',
+    };
+    const ropaOption = {
+      text: 'Ropa',
+      value: 'ropa',
+    };
+    const tecnologiaOption = {
+      text: 'Tecnologia',
+      value: 'tecnologia',
+    };
+    const variosOption = {
+      text: 'Varios',
+      value: 'varios',
+    };
+    this.pickerOpts.push(comidaOption);
+    this.pickerOpts.push(construccionOption);
+    this.pickerOpts.push(ropaOption);
+    this.pickerOpts.push(tecnologiaOption);
+    this.pickerOpts.push(variosOption);
+
+    this.openPicker('categoria');
   }
 
   getEstado() {
