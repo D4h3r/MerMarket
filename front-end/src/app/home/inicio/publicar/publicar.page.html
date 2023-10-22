@@ -66,6 +66,15 @@
                     <div *ngIf="f['descripcion'].errors['required']">Se requiere la descripcion del producto</div>
                   </div>
                   <div *ngIf="!(ngForm.submitted && f['descripcion'].errors)"></div>
+
+                  <ion-row>
+                    <ion-col>
+                      <div class="field-label left-align text-start">Imagen</div>
+                      <ion-item class="loginItem" lines="none">
+                        <input type="file" (change)="seleccionarImagen($event)">
+                      </ion-item>
+                    </ion-col>
+                  </ion-row>
                                                 
                   <ion-row>
                     <ion-col class="ion-text-center ion-align-items-end">
