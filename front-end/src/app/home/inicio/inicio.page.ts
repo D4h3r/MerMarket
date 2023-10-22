@@ -2,7 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { InfiniteScrollCustomEvent } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { MenuController } from '@ionic/angular';
 
+interface PageItem {
+  title: string;
+  icon: string;
+}
 
 @Component({
   selector: 'app-inicio',
@@ -11,9 +16,24 @@ import { AuthService } from '../../services/auth.service';
 })
 export class InicioPage implements OnInit {
 
-  items = ["Hola","putas"];
+  items = ["Hola", "putas"];
 
-  constructor(private router: Router, private auth: AuthService) {}
+  // Menú de navegación lateral
+  pages = [
+    { title: 'Construccion', icon: 'construct' },
+    { title: 'Productos envasados', icon: 'cube' },
+    { title: 'Frutas y Verduras', icon: 'leaf' },
+    { title: 'Libros', icon: 'book' },
+    { title: 'Mascotas', icon: 'paw' },
+    { title: 'Ropa', icon: 'shirt' },
+    { title: 'Regalos', icon: 'gift' }
+  ];
+
+  constructor(
+    private router: Router,
+    private auth: AuthService,
+    private menu: MenuController
+  ) { }
 
   ngOnInit() {
     this.generateItems();
@@ -27,7 +47,6 @@ export class InicioPage implements OnInit {
   }
 
   cerrarSesion() {
-    
     this.auth.cerrarSesion()
       .then(() => {
         this.router.navigate(['/home']);
@@ -36,11 +55,23 @@ export class InicioPage implements OnInit {
         console.error('Error al cerrar sesión', error);
       });
   }
-  
+
   onIonInfinite(ev: any) {
     this.generateItems();
     setTimeout(() => {
       (ev as InfiniteScrollCustomEvent).target.complete();
     }, 500);
+  }
+
+  // Navega a la página de editar perfil
+  goToEditProfile() {
+    // Puedes cambiar esto a la ruta correcta para tu aplicación
+    this.router.navigate(['/edit-profile']);
+  }
+
+  // Abre una página específica desde el menú desplegable
+  openPage(page: PageItem) {
+    this.router.navigate([`/${page.title.toLowerCase().replace(' ', '-')}`]);
+    this.menu.close();
   }
 }
