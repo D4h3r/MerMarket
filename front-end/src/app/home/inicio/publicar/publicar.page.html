@@ -26,6 +26,7 @@
                   </div>
                   <div *ngIf="!(ngForm.submitted && f['nombre'].errors)"></div>
 
+                  <!--Input de precio-->
                   <ion-row>
                     <ion-col>
                       <div class="field-label left-align text-start">Precio</div>
@@ -39,6 +40,7 @@
                   </div>
                   <div *ngIf="!(ngForm.submitted && f['precio'].errors)"></div>
 
+                  <!--Seleccion de estado-->
                   <ion-row>
                     <ion-col>
                       <div class="field-label left-align text-start">Estado</div>
@@ -51,8 +53,22 @@
                       </div>
                     </ion-col>
                   </ion-row>
-                  
 
+                  <!--Seleccion de categoria-->
+                  <ion-row>
+                    <ion-col>
+                      <div class="field-label left-align text-start">Categoria</div>
+                      <ion-item class="loginItem" lines="none" (click)="getCategoria()">
+                        <ion-text class="textInputDate">{{ formularioPublicacion.value.sexoUsuario }}</ion-text>
+                      </ion-item>
+                      <div *ngIf="(ngForm.submitted && formularioPublicacion.controls['categoria'].errors) || (flag == false && formularioPublicacion.controls['categoria'].errors)"
+                        class="invalid-feedback error">
+                        <div *ngIf="formularioPublicacion.controls['categoria'].errors?.['required']">Se requiere la categoria del producto</div>
+                      </div>
+                    </ion-col>
+                  </ion-row>
+                  
+                  <!--Input de descripcion-->
                   <ion-row>
                     <ion-col>
                       <div class="field-label left-align text-start">Descripcion</div>
