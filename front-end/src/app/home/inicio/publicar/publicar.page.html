@@ -59,7 +59,7 @@
                     <ion-col>
                       <div class="field-label left-align text-start">Categoria</div>
                       <ion-item class="loginItem" lines="none" (click)="getCategoria()">
-                        <ion-text class="textInputDate">{{ formularioPublicacion.value.sexoUsuario }}</ion-text>
+                        <ion-text class="textInputDate">{{ formularioPublicacion.value.categoria }}</ion-text>
                       </ion-item>
                       <div *ngIf="(ngForm.submitted && formularioPublicacion.controls['categoria'].errors) || (flag == false && formularioPublicacion.controls['categoria'].errors)"
                         class="invalid-feedback error">
@@ -79,18 +79,24 @@
                   </ion-row>
                   
                   <div *ngIf="ngForm.submitted && f['descripcion'].errors || flag == false && f['descripcion'].errors" class="invalid-feedback">
-                    <div *ngIf="f['descripcion'].errors['required']">Se requiere la descripcion del producto</div>
+                    <div *ngIf="f['descripcion'].errors['required']">Se requiere la descripción del producto</div>
                   </div>
                   <div *ngIf="!(ngForm.submitted && f['descripcion'].errors)"></div>
 
                   <ion-row>
                     <ion-col>
-                      <div class="field-label left-align text-start">Imagen</div>
+                      <div class="field-label left-align text-start">Imagenes</div>
                       <ion-item class="loginItem" lines="none">
-                        <input type="file" (change)="seleccionarImagen($event)">
+                        <input type="file" (change)="seleccionarImagenes($event)" multiple>
                       </ion-item>
                     </ion-col>
                   </ion-row>
+
+                  <ion-list>
+                    <ion-item *ngFor="let imagen of imagenesSeleccionadas">
+                      <img [src]="imagen.url" alt="Imagen previa">
+                    </ion-item>
+                  </ion-list>
                                                 
                   <ion-row>
                     <ion-col class="ion-text-center ion-align-items-end">

@@ -5,6 +5,7 @@ import { PickerController, PickerOptions } from '@ionic/angular';
 import { Injectable } from '@angular/core';
 
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -24,14 +25,25 @@ export class PublicarPage implements OnInit {
     imagen: ['',Validators.required],
   });
 
-  imagenSeleccionada: File | null = null;
 
-  seleccionarImagen(event: any) {
-    const files = event.target.files;
-    if (files.length > 0) {
-      this.imagenSeleccionada = files[0];
+
+    //para el formulario de imagenes
+    imagenesSeleccionadas: { file: File, url: string }[] = [];
+
+    
+    seleccionarImagenes(event: any) {
+      const files: FileList = event.target.files;
+        if (files.length > 0) {
+
+          for (let i = 0; i < files.length; i++) {
+            const file = files.item(i);
+
+            if (file) {
+              this.imagenesSeleccionadas.push({ file, url: URL.createObjectURL(file)});
+            }
+          }
+      }
     }
-  }
 
   errorMessage: { [key: string]: string } = {};
   pickerOpts: {text: string; value: string}[] = [];
@@ -47,6 +59,7 @@ export class PublicarPage implements OnInit {
 
   ngOnInit() {
   }
+
 
   goToInicio(){
     this.router.navigate(['/home/inicio']);
@@ -182,21 +195,24 @@ export class PublicarPage implements OnInit {
 
   enviarRegistro() {
     if (this.formularioPublicacion.invalid) {
-      const controls = this.formularioPublicacion.controls;
-      for (const c in controls) {
-        if (controls[c].invalid) {
-          if (controls[c].errors?.['pattern']) {
-            console.log('Invalido: ' + this.errorMessage[c + 'Invalido']);
-            // Realiza otras acciones si es necesario
-            return;
-          }
-          console.log(c);
-          console.log(this.errorMessage[c]);
-          // Realiza otras acciones si es necesario
-          return;
-        }
-      }
+      const formData = new FormData();
+
+      // Agrega los datos del formulario al objeto FormData.
+      formData.append('nombre', this.formularioPublicacion.get('nombre')?.value);
+      formData.append('precio', this.formularioPublicacion.get('precio')?.value);
+      formData.append('descripcion', this.formularioPublicacion.get('descripcion')?.value);
+      formData.append('estado', this.formularioPublicacion.get('estado')?.value);
+  
+      // Agrega las imágenes seleccionadas al objeto FormData.
+      this.imagenesSeleccionadas.forEach((imagen, index) => {
+        formData.append(`imagen${index}`, imagen.file);
+      });
+  
+      // Ahora puedes enviar formData al servidor, por ejemplo, a través de una solicitud HTTP POST.
     }
   }
-
+  
+  
+  
+  
 }

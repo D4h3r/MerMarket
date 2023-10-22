@@ -5,6 +5,11 @@
 .field-label {
   color: black;
 }
+img {
+  max-width: 100px;
+  max-height: 100px; 
+  object-fit: cover; 
+}
 
 .background {
   background-color: #73E098;
