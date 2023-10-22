@@ -2,6 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { PickerController, PickerOptions } from '@ionic/angular';
+import { Injectable } from '@angular/core';
+
+
+@Injectable({
+  providedIn: 'root'
+})
 
 @Component({
   selector: 'app-publicar',
@@ -17,6 +23,15 @@ export class PublicarPage implements OnInit {
     estado: ['',Validators.required],
     imagen: ['',Validators.required],
   });
+
+  imagenSeleccionada: File | null = null;
+
+  seleccionarImagen(event: any) {
+    const files = event.target.files;
+    if (files.length > 0) {
+      this.imagenSeleccionada = files[0];
+    }
+  }
 
   errorMessage: { [key: string]: string } = {};
   pickerOpts: {text: string; value: string}[] = [];
