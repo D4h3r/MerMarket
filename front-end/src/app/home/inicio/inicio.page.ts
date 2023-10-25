@@ -56,6 +56,7 @@ export class InicioPage implements OnInit {
     }
   }
 
+  /*
   app = initializeApp(firebaseConfig);
   db = getFirestore(this.app);
 
@@ -65,7 +66,7 @@ export class InicioPage implements OnInit {
     const productosList = productosSnapshot.docs.map(doc => doc.data());
     return productosList;
   }
-
+*/
   
   cerrarSesion() {
     this.auth.cerrarSesion()
