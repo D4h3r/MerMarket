@@ -3,8 +3,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { PickerController, PickerOptions } from '@ionic/angular';
 import { Injectable } from '@angular/core';
-import 'firebase/database';
-import * as firebase from 'firebase/compat';
+import { addDoc, collection, doc, getFirestore, setDoc } from '@firebase/firestore';
+import { initializeApp } from 'firebase/app';
+import { firebaseConfig } from 'src/environments/configfb';
 
 
 @Injectable({
@@ -53,6 +54,9 @@ export class PublicarPage implements OnInit {
   public flag = true;
   public status = 0;
 
+  app = initializeApp(firebaseConfig);
+  db = getFirestore(this.app);
+
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
@@ -67,7 +71,7 @@ export class PublicarPage implements OnInit {
     this.router.navigate(['/home/inicio']);
   }
 
-  continuarPrueba(n: number) {
+  async continuarPrueba(n: number) {
     if (n === 1) {
       if (
         this.formularioPublicacion.value.nombre !== "" &&
@@ -87,6 +91,13 @@ export class PublicarPage implements OnInit {
       this.flag = true;
     }
 
+    await setDoc(doc(this.db,"productos", alert(new Date()) + this.formularioPublicacion.get('nombre')?.value ), {
+      nombre: this.formularioPublicacion.get('nombre')?.value,
+      precio: this.formularioPublicacion.get('precio')?.value,
+      descripcion: this.formularioPublicacion.get('descripcion')?.value,
+      categoria: this.formularioPublicacion.get('categoria')?.value,
+      estado: this.formularioPublicacion.get('estado')?.value
+    });
 
     console.log("Funciona la función continuarPrueba");
   }
@@ -196,7 +207,7 @@ export class PublicarPage implements OnInit {
     this.openPicker('estado');
   }
 
-  enviarRegistro() {
+  async enviarRegistro() {
     if (this.formularioPublicacion.invalid) {
       const formData = new FormData();
 
@@ -204,14 +215,24 @@ export class PublicarPage implements OnInit {
       formData.append('nombre', this.formularioPublicacion.get('nombre')?.value);
       formData.append('precio', this.formularioPublicacion.get('precio')?.value);
       formData.append('descripcion', this.formularioPublicacion.get('descripcion')?.value);
+      formData.append('categoria',this.formularioPublicacion.get('categoria')?.value);
       formData.append('estado', this.formularioPublicacion.get('estado')?.value);
   
       // Agrega las imágenes seleccionadas al objeto FormData.
       this.imagenesSeleccionadas.forEach((imagen, index) => {
         formData.append(`imagen${index}`, imagen.file);
       });
-  
+
+      console.log(formData.get('nombre'));
+      console.log(formData.get('precio'));
+      console.log(formData.get('descripcion'));
+      console.log(formData.get('categoria'));
+      console.log(formData.get('estado'));
+
       // Ahora puedes enviar formData al servidor, por ejemplo, a través de una solicitud HTTP POST.
+    }
+    else {
+      console.log('algo pasó aqui :(');
     }
   }
   

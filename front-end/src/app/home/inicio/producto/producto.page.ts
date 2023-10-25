@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 
 @Component({
   selector: 'app-producto',
@@ -7,9 +7,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProductoPage implements OnInit {
 
-  constructor() { }
+  nombre: string = '';
+  imagenes: any[] = [];
+  precio: number = 0;
+  descripcion: string = '';
+  categoria: string = '';
+  estado: string = '';
+  
+  constructor() {
+   }
 
   ngOnInit() {
   }
+
 
 }

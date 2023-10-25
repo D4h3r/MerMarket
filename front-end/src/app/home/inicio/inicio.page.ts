@@ -3,6 +3,12 @@ import { InfiniteScrollCustomEvent } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { MenuController } from '@ionic/angular';
+import { Observable } from 'rxjs';
+import { initializeApp } from 'firebase/app';
+import { firebaseConfig } from 'src/environments/configfb';
+import { collection, getFirestore } from '@firebase/firestore';
+import { getDocs } from '@firebase/firestore/lite';
+import { FirebaseFirestore } from '@firebase/firestore-types';
 
 interface PageItem {
   title: string;
@@ -17,6 +23,8 @@ interface PageItem {
 export class InicioPage implements OnInit {
 
   items = ["Hola", "putas"];
+  
+
 
   // Menú de navegación lateral
   pages = [
@@ -33,7 +41,9 @@ export class InicioPage implements OnInit {
     private router: Router,
     private auth: AuthService,
     private menu: MenuController
-  ) { }
+  ) { 
+    
+  }
 
   ngOnInit() {
     this.generateItems();
@@ -46,6 +56,17 @@ export class InicioPage implements OnInit {
     }
   }
 
+  app = initializeApp(firebaseConfig);
+  db = getFirestore(this.app);
+
+  async  getProductos(db: FirebaseFirestore) {
+    const productosColletion = collection(db , 'productos');
+    const productosSnapshot = await getDocs(productosColletion);
+    const productosList = productosSnapshot.docs.map(doc => doc.data());
+    return productosList;
+  }
+
+  
   cerrarSesion() {
     this.auth.cerrarSesion()
       .then(() => {
@@ -55,6 +76,9 @@ export class InicioPage implements OnInit {
         console.error('Error al cerrar sesión', error);
       });
   }
+
+  
+  
 
   onIonInfinite(ev: any) {
     this.generateItems();
@@ -74,4 +98,6 @@ export class InicioPage implements OnInit {
     this.router.navigate([`/${page.title.toLowerCase().replace(' ', '-')}`]);
     this.menu.close();
   }
+
+  
 }
