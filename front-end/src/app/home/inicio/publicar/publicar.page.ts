@@ -3,7 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { PickerController, PickerOptions } from '@ionic/angular';
 import { Injectable } from '@angular/core';
-
+import 'firebase/database';
+import * as firebase from 'firebase/compat';
 
 
 @Injectable({
@@ -22,6 +23,7 @@ export class PublicarPage implements OnInit {
     precio: ['',Validators.required],
     descripcion: ['',Validators.required],
     estado: ['',Validators.required],
+    categoria: ['',Validators.required],
     imagen: ['',Validators.required],
   });
 
@@ -72,6 +74,7 @@ export class PublicarPage implements OnInit {
         this.formularioPublicacion.value.precio !== "" &&
         this.formularioPublicacion.value.descripcion !== "" &&
         this.formularioPublicacion.value.estado !== "" &&
+        this.formularioPublicacion.value.categoria !== "" &&
         this.formularioPublicacion.value.imagen !== ""
       ) {
         this.status = n;
