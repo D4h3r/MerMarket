@@ -3,9 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { PickerController, PickerOptions } from '@ionic/angular';
 import { Injectable } from '@angular/core';
-import { addDoc, collection, doc, getFirestore, setDoc } from '@firebase/firestore';
-import { initializeApp } from 'firebase/app';
-import { firebaseConfig } from 'src/environments/configfb';
+import { addDoc, collection, getFirestore } from '@firebase/firestore';
 
 
 @Injectable({
@@ -54,8 +52,8 @@ export class PublicarPage implements OnInit {
   public flag = true;
   public status = 0;
 
-  app = initializeApp(firebaseConfig);
-  db = getFirestore(this.app);
+
+  db = getFirestore();
 
   constructor(
     private router: Router,
@@ -91,13 +89,20 @@ export class PublicarPage implements OnInit {
       this.flag = true;
     }
 
-    await setDoc(doc(this.db,"productos", alert(new Date()) + this.formularioPublicacion.get('nombre')?.value ), {
-      nombre: this.formularioPublicacion.get('nombre')?.value,
-      precio: this.formularioPublicacion.get('precio')?.value,
-      descripcion: this.formularioPublicacion.get('descripcion')?.value,
-      categoria: this.formularioPublicacion.get('categoria')?.value,
-      estado: this.formularioPublicacion.get('estado')?.value
-    });
+    const newDcoRef = collection(this.db, 'productos');
+
+    try {
+      const docRef = await addDoc(newDcoRef, {
+        id: new Date() + this.formularioPublicacion.get('nombre')?.value,
+        nombre: this.formularioPublicacion.get('nombre')?.value,
+        precio: this.formularioPublicacion.get('precio')?.value,
+        descripcion: this.formularioPublicacion.get('descripcion')?.value,
+        categoria: this.formularioPublicacion.get('categoria')?.value,
+        estado: this.formularioPublicacion.get('estado')?.value
+      });
+    } catch (e) {
+      console.error("Error: ", e);
+    }
 
     console.log("Funciona la función continuarPrueba");
   }
