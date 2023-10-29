@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { PickerController, PickerOptions } from '@ionic/angular';
 import { Injectable } from '@angular/core';
 import { addDoc, collection, getFirestore } from '@firebase/firestore';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
 
 
 @Injectable({
@@ -55,13 +56,26 @@ export class PublicarPage implements OnInit {
 
   db = getFirestore();
 
+  correousuario!: string | null;
+
+  auth = getAuth();
+
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
     private pickerController: PickerController
-  ) {}
+  ) {
+    onAuthStateChanged(this.auth, (user) => {
+      if (user) {
+        this.correousuario = user.email;
+      } else {
+        console.log("no hay usuario autenticado");
+      }
+    });
+  }
 
   ngOnInit() {
+    
   }
 
 
@@ -90,12 +104,13 @@ export class PublicarPage implements OnInit {
     }
 
     const newDcoRef = collection(this.db, 'productos');
-
+    
+    
     try {
       const docRef = await addDoc(newDcoRef, {
-        id: new Date() + this.formularioPublicacion.get('nombre')?.value,
+        usuario: this.correousuario,
         nombre: this.formularioPublicacion.get('nombre')?.value,
-        precio: this.formularioPublicacion.get('precio')?.value,
+        precio: <number> this.formularioPublicacion.get('precio')?.value,
         descripcion: this.formularioPublicacion.get('descripcion')?.value,
         categoria: this.formularioPublicacion.get('categoria')?.value,
         estado: this.formularioPublicacion.get('estado')?.value
@@ -105,6 +120,8 @@ export class PublicarPage implements OnInit {
     }
 
     console.log("Funciona la función continuarPrueba");
+
+    this.router.navigate(['home/inicio']);
   }
 
   get f() {
@@ -159,23 +176,23 @@ export class PublicarPage implements OnInit {
     this.pickerOpts = [];
     const comidaOption = {
       text: 'Comida',
-      value: 'comida',
+      value: 'Comida',
     };
     const construccionOption = {
       text: 'Materiales de construccion',
-      value: 'construccion',
+      value: 'Materiales de construccion',
     };
     const ropaOption = {
       text: 'Ropa',
-      value: 'ropa',
+      value: 'Ropa',
     };
     const tecnologiaOption = {
       text: 'Tecnologia',
-      value: 'tecnologia',
+      value: 'Tecnologia',
     };
     const variosOption = {
       text: 'Varios',
-      value: 'varios',
+      value: 'Varios',
     };
     this.pickerOpts.push(comidaOption);
     this.pickerOpts.push(construccionOption);
@@ -240,8 +257,5 @@ export class PublicarPage implements OnInit {
       console.log('algo pasó aqui :(');
     }
   }
-  
-  
-  
-  
 }
+
