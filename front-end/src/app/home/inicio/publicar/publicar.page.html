@@ -83,6 +83,20 @@
                   </div>
                   <div *ngIf="!(ngForm.submitted && f['descripcion'].errors)"></div>
 
+                  <!-- Input de stock -->
+                  <ion-row>
+                    <ion-col>
+                      <div class="field-label left-align text-start">Stock</div>
+                      <ion-item class="loginItem" lines="none">
+                        <ion-input class="loginInput" formControlName="stock" placeholder="Stock" type="number" inputmode="numeric"></ion-input>
+                      </ion-item>
+                    </ion-col>
+                  </ion-row>
+                  <div *ngIf="ngForm.submitted && f['stock'].errors || flag == false && f['stock'].errors" class="invalid-feedback">
+                    <div *ngIf="f['stock'].errors['required']">Se requiere el stock del producto</div>
+                  </div>
+                  <div *ngIf="!(ngForm.submitted && f['stock'].errors)"></div>
+
                   <ion-row>
                     <ion-col>
                       <div class="field-label left-align text-start">Imagenes</div>

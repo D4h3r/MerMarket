@@ -42,17 +42,21 @@
 
                   <ion-row>
                     <ion-col>
-                      <div class="field-label left-align text-start">RUT</div>
-                      <ion-item class="loginItem" lines="none">
-                        <ion-input class="loginInput" formControlName="rut" placeholder="RUT" type="text" (blur)="formatRut()"></ion-input>
-                      </ion-item>
+                        <div class="field-label left-align text-start">RUT</div>
+                        <ion-item class="loginItem" lines="none">
+                          <ion-input class="loginInput" formControlName="rut" placeholder="RUT" type="text" (change)="formatRut()"></ion-input>
+                        </ion-item>
                     </ion-col>
-                  </ion-row>
-                  <p class="invalid-feedback" *ngIf="!rutValidated">Rut no válido, intente nuevamente.</p>
-                  <div *ngIf="ngForm.submitted && f['rut'].errors || flag === false && f['rut'].errors" class="invalid-feedback">
-                    <div *ngIf="f['rut'].errors?.['required']">Se requiere el rut del usuario</div>
-                  </div>
-                  <div *ngIf="!(ngForm.submitted && f['rut'].errors)"></div>
+                </ion-row>
+                <p class="invalid-feedback" *ngIf="!rutValidated">Rut no válido, intente nuevamente.</p>
+                <div *ngIf="ngForm.submitted && formularioRegistroPersonal.controls['rut'].errors || flag === false && formularioRegistroPersonal.controls['rut'].errors" class="invalid-feedback">
+                    <div *ngIf="formularioRegistroPersonal.controls['rut'].errors?.['required']">Se requiere el rut del usuario</div>
+                </div>
+                <div *ngIf="!(ngForm.submitted && formularioRegistroPersonal.controls['rut'].errors)"></div>
+                
+                
+                  
+                  
 
                   <ion-row>
                     <ion-col>

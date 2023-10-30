@@ -13,12 +13,14 @@ import { provideFirebaseApp } from '@angular/fire/app';
 import { initializeApp } from 'firebase/app';
 import { getFirestore } from '@firebase/firestore';
 
+import { ProductDetailsModule } from '../app/home/inicio/producto/product-details/product-details.module';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
+    ProductDetailsModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
