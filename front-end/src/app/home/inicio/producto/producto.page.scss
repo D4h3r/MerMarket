@@ -46,11 +46,11 @@ ion-menu-button {
 
 ion-header {
   ion-toolbar {
-      ion-title {
-          flex: none;
-          margin-left: auto;
-          margin-right: auto;
-      }
+    ion-title {
+      flex: none;
+      margin-left: auto;
+      margin-right: auto;
+    }
   }
 }
 
@@ -105,17 +105,17 @@ ion-header {
 
 @media (min-width: 768px) {
   .custom-button {
-      margin-top: 20px;
+    margin-top: 20px;
   }
   .field-label {
-      text-align: left;
-      margin-left: 0;
+    text-align: left;
+    margin-left: 0;
   }
 }
 
 @media (max-width: 767px) {
   .backgroundLogin {
-      padding: 10px;
+    padding: 10px;
   }
 }
 
@@ -135,28 +135,14 @@ ion-header {
 
 @media (min-width: 768px) {
   .ion-text-center {
-      display: flex;
-      justify-content: center;
-      align-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   .ion-align-items-start {
-      align-items: flex-start;
+    align-items: flex-start;
   }
   .ion-align-items-end {
-      align-items: flex-end;
+    align-items: flex-end;
   }
-}
-
-/* Nueva regla CSS para el contenedor de los iconos */
-.icon-container {
-  display: flex;
-  justify-content: center;
-  margin: 10px 0;
-}
-
-.icon-buttons {
-  display: flex;
-  justify-content: space-around;
-  width: 100%;
-  max-width: 400px;
 }
