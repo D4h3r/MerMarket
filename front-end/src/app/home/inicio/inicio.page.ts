@@ -3,7 +3,7 @@ import { InfiniteScrollCustomEvent } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { MenuController } from '@ionic/angular';
-import { DocumentData, collection, getFirestore } from '@firebase/firestore';
+import { DocumentData, collection, getFirestore, query } from '@firebase/firestore';
 import { getDocs } from '@firebase/firestore/lite';
 
 interface PageItem {
@@ -49,12 +49,34 @@ export class InicioPage implements OnInit {
 
   async cargarProductos(){
     try {
-      const querySnapshot = await getDocs(collection(this.db, 'productos'));
-      querySnapshot.forEach((doc) => {
-        this.llenarInicio(doc.data());
+      const q = query(collection(this.db, 'productos'));
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach((producto) => {
+        console.log(producto.id ,'=', producto.data());
+        /*
+        const data = producto.data();
+        const ion_card = document.createElement('ion-card');
+        const img = document.createElement('img');
+        const ion_card_header = document.createElement('ion-card-header');
+        const ion_card_title = document.createElement('ion-card-title');
+        const ion_card_subtitle = document.createElement('ion-card-subtitle');
+        const ion_card_content = document.createElement('ion-card-content');
+        const paneles = document.getElementById('paneles');
+
+        img.setAttribute('src', 'https://i1.sndcdn.com/artworks-F11dor2dKfIo0DA6-zRbrxg-t500x500.jpg');
+        ion_card_title.innerText = data['nombre'];
+        ion_card_subtitle.innerText = '$' + data['precio'];
+        ion_card_content.innerText = data['descripcion'].substring(0,20);
+        ion_card_header.appendChild(ion_card_title);
+        ion_card.appendChild(ion_card_header);
+        ion_card.appendChild(ion_card_content);
+        paneles?.appendChild(ion_card);
+        console.log(data);
+        */
       });
+      
     } catch (error) {
-      console.log('falló :(');
+      console.log(error);
     }
   }
 
@@ -69,24 +91,7 @@ export class InicioPage implements OnInit {
 
   llenarInicio(producto: DocumentData) {
     //declaracion de varuables
-    const ion_card = document.createElement('ion-card');
-    const img = document.createElement('img');
-    const ion_card_header = document.createElement('ion-card-header');
-    const ion_card_title = document.createElement('ion-card-title');
-    const ion_card_subtitle = document.createElement('ion-card-subtitle');
-    const ion_card_content = document.createElement('ion-card-content');
-    const paneles = document.getElementById('paneles');
-
-    //iteracion con los datos por producto
-    img.setAttribute('src', 'https://i1.sndcdn.com/artworks-F11dor2dKfIo0DA6-zRbrxg-t500x500.jpg');
-    ion_card_title.innerText = producto['nombre'];
-    ion_card_subtitle.innerText = '$' + producto['precio'];
-    ion_card_content.innerText = producto['descripcion'].substring(0,20);
-    ion_card_header.appendChild(ion_card_title);
-    ion_card.appendChild(ion_card_header);
-    ion_card.appendChild(ion_card_content);
-    paneles?.appendChild(ion_card);
-    console.log(producto['nombre']);
+    
   }
   
   cerrarSesion() {
@@ -123,3 +128,4 @@ export class InicioPage implements OnInit {
 
   
 }
+

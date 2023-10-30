@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { PickerController, PickerOptions } from '@ionic/angular';
 import { Injectable } from '@angular/core';
-import { addDoc, collection, getFirestore } from '@firebase/firestore';
+import { addDoc, collection, doc, getFirestore, setDoc } from '@firebase/firestore';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 
 
@@ -83,6 +83,11 @@ export class PublicarPage implements OnInit {
     this.router.navigate(['/home/inicio']);
   }
 
+  sacarIDUsuario(){
+    const resultado = <string>this.correousuario?.substring(0,this.correousuario.indexOf('@'));
+    return resultado;
+  }
+
   async continuarPrueba(n: number) {
     if (n === 1) {
       if (
@@ -103,17 +108,22 @@ export class PublicarPage implements OnInit {
       this.flag = true;
     }
 
-    const newDcoRef = collection(this.db, 'productos');
+    const fechaP = new Date();
+    const id_publicacion = this.sacarIDUsuario() + fechaP.getFullYear() as string + fechaP.getMonth() as string + fechaP.getDay() as string + 
+      fechaP.getHours() as string + fechaP.getMinutes() as string + fechaP.getSeconds() as string;
+    const ref = doc(this.db, 'productos', id_publicacion);
     
     
     try {
-      const docRef = await addDoc(newDcoRef, {
+      
+      const docRef = await setDoc(ref, {
         usuario: this.correousuario,
         nombre: this.formularioPublicacion.get('nombre')?.value,
         precio: <number> this.formularioPublicacion.get('precio')?.value,
         descripcion: this.formularioPublicacion.get('descripcion')?.value,
         categoria: this.formularioPublicacion.get('categoria')?.value,
-        estado: this.formularioPublicacion.get('estado')?.value
+        estado: this.formularioPublicacion.get('estado')?.value,
+        fecha: fechaP
       });
     } catch (e) {
       console.error("Error: ", e);
