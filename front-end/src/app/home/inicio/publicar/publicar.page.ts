@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { PickerController, PickerOptions } from '@ionic/angular';
 import { Injectable } from '@angular/core';
 import { addDoc, collection, doc, getFirestore, setDoc } from '@firebase/firestore';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { filter } from 'rxjs';
 
 
 @Injectable({
@@ -117,6 +118,7 @@ export class PublicarPage implements OnInit {
     try {
       
       const docRef = await setDoc(ref, {
+        id: id_publicacion,
         usuario: this.correousuario,
         nombre: this.formularioPublicacion.get('nombre')?.value,
         precio: <number> this.formularioPublicacion.get('precio')?.value,

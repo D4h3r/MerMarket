@@ -13,6 +13,7 @@ export class ProductoPage implements OnInit {
   
   items = ["", ""]; 
 
+  id: string = "";
   nombre: string = '';
   imagenes: any[] = [];
   precio: number = 0;

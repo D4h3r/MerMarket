@@ -78,7 +78,7 @@
 
     <ion-row>
       <ion-col id = 'paneles' size="6" size-md="4" size-lg="2" *ngFor = "let producto of productos">
-        <ion-card>
+        <ion-card (click)="openPage(producto.id)">
           <img src="https://i1.sndcdn.com/artworks-F11dor2dKfIo0DA6-zRbrxg-t500x500.jpg">
           <ion-card-header>
               <ion-card-title>{{ producto.nombre }}</ion-card-title>
@@ -93,7 +93,4 @@
     </ion-row>
   </div>
   
-  <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
-    <ion-infinite-scroll-content></ion-infinite-scroll-content>
-  </ion-infinite-scroll>
 </ion-content>
