@@ -1,0 +1,79 @@
+:host {
+    ion-header {
+        ion-toolbar {
+            --background: #359857;
+            --color: white;
+
+            ion-title {
+                flex: none;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            ion-buttons {
+                ion-menu-button {
+                    --color: white;
+                }
+            }
+        }
+    }
+
+    ion-content {
+        background-color: #73E098;
+
+        .product-details-card {
+            margin: 16px;
+            border-radius: 8px;
+
+            ion-card-header {
+                --background: #359857;
+                --color: white;
+            }
+
+            ion-card-content {
+                --background: white;
+                --color: #333333;
+                padding: 16px;
+            }
+
+            ion-button {
+                --background: #d9d9d9;
+                --color: #333333;
+                margin-top: 10px;
+                font-weight: bold;
+            }
+        }
+    }
+}
+
+@media (min-width: 768px) {
+    :host {
+        ion-content {
+            .product-details-card {
+                ion-button {
+                    margin-top: 20px;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 767px) {
+    // cualquier estilo específico para móviles
+}
+
+.icon-container {
+    display: flex;
+    justify-content: center;
+    padding: 10px 0;
+  }
+  
+  .heart-icon {
+    fill: blue;
+    stroke: blue;
+  }
+  
+  .liked {
+    fill: red;
+    stroke: red;
+  }

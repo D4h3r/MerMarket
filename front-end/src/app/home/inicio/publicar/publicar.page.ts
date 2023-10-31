@@ -26,6 +26,7 @@ export class PublicarPage implements OnInit {
     estado: ['',Validators.required],
     categoria: ['',Validators.required],
     imagen: ['',Validators.required],
+    stock: [null, [Validators.required, Validators.min(1)]],  // Asegúrate de que el stock sea al menos 1
   });
 
 
@@ -97,6 +98,7 @@ export class PublicarPage implements OnInit {
         this.formularioPublicacion.value.descripcion !== "" &&
         this.formularioPublicacion.value.estado !== "" &&
         this.formularioPublicacion.value.categoria !== "" &&
+        this.formularioPublicacion.value.stock !== "" &&
         this.formularioPublicacion.value.imagen !== ""
       ) {
         this.status = n;
@@ -125,7 +127,8 @@ export class PublicarPage implements OnInit {
         descripcion: this.formularioPublicacion.get('descripcion')?.value,
         categoria: this.formularioPublicacion.get('categoria')?.value,
         estado: this.formularioPublicacion.get('estado')?.value,
-        fecha: fechaP
+        stock: <number> this.formularioPublicacion.get('stock')?.value
+
       });
     } catch (e) {
       console.error("Error: ", e);
@@ -251,6 +254,8 @@ export class PublicarPage implements OnInit {
       formData.append('descripcion', this.formularioPublicacion.get('descripcion')?.value);
       formData.append('categoria',this.formularioPublicacion.get('categoria')?.value);
       formData.append('estado', this.formularioPublicacion.get('estado')?.value);
+      formData.append('stock', this.formularioPublicacion.get('stock')?.value);
+
   
       // Agrega las imágenes seleccionadas al objeto FormData.
       this.imagenesSeleccionadas.forEach((imagen, index) => {

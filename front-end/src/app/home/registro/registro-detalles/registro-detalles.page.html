@@ -1,0 +1,74 @@
+<ion-content>
+  <div class="header">
+    <div class="rectangle">
+      <span class="text">Crear Cuenta</span>
+    </div>
+  </div>
+
+  <div class="background">
+    <ion-grid>
+      <ion-row>
+        <ion-col class="ion-text-center">
+          <div class="loginCard">
+            <!-- Cambiado el nombre del formGroup a registroDetallesForm -->
+            <form [formGroup]="registroDetallesForm" (ngSubmit)="onSubmit()" #ngForm="ngForm"> 
+              <div *ngIf="status === 0">
+                <ion-grid>
+
+                  <!-- ... tus otros campos ... -->
+
+                  <!-- Agregado el campo de correo electrónico -->
+                  <ion-row>
+                    <ion-col>
+                      <div class="field-label left-align text-start">Correo Electrónico</div>
+                      <ion-item class="loginItem" lines="none">
+                        <ion-input class="loginInput" formControlName="email" placeholder="Correo Electrónico" type="email"></ion-input>
+                      </ion-item>
+                      <ion-item *ngIf="registroDetallesForm.controls['email'].invalid && (registroDetallesForm.controls['email'].dirty || registroDetallesForm.controls['email'].touched)">
+                        <ion-text color="danger">Por favor, introduce un correo electrónico válido.</ion-text>
+                      </ion-item>
+                    </ion-col>
+                  </ion-row>
+
+                  <!-- Agregado el campo de contraseña -->
+                  <ion-row>
+                    <ion-col>
+                      <div class="field-label left-align text-start">Clave</div>
+                      <ion-item class="loginItem" lines="none">
+                        <ion-input class="loginInput" formControlName="password" placeholder="Clave" type="password"></ion-input>
+                      </ion-item>
+                    </ion-col>
+                  </ion-row>
+
+                  <!-- Agregado el campo de confirmar contraseña -->
+                  <ion-row>
+                    <ion-col>
+                      <div class="field-label left-align text-start">Confirmar Clave</div>
+                      <ion-item class="loginItem" lines="none">
+                        <ion-input class="loginInput" formControlName="confirmPassword" placeholder="Confirmar Clave" type="password"></ion-input>
+                      </ion-item>
+                      <ion-item *ngIf="registroDetallesForm.hasError('notSame')">
+                        <ion-text color="danger">Las claves no coinciden.</ion-text>
+                      </ion-item>
+                    </ion-col>
+                  </ion-row>
+
+                  <!-- ... tus otros campos ... -->
+
+                  <ion-row>
+                    <ion-col class="ion-text-center ion-align-items-end">
+                      <ion-button color="light" class="custom-button" routerLink="../../home">Volver</ion-button>
+                    </ion-col>
+                    <ion-col class="ion-text-center ion-align-items-start">
+                      <ion-button color="light" class="custom-button" type="submit" [disabled]="!registroDetallesForm.valid">Registrar</ion-button>
+                    </ion-col>
+                  </ion-row>
+                </ion-grid>
+              </div>
+            </form>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+</ion-content>

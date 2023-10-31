@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { PickerController, PickerOptions } from '@ionic/angular';
-import { validate, format } from '../../../../node_modules/rut.js';
 import { COUNTRY_REGION } from '../../../assets/resources/country_data/paises';
+import { validate, clean, format, getCheckDigit } from 'rut.js';
+
 
 @Component({
   selector: 'app-registro',
@@ -11,6 +12,8 @@ import { COUNTRY_REGION } from '../../../assets/resources/country_data/paises';
   styleUrls: ['./registro.page.scss'],
 })
 export class RegistroPage implements OnInit {
+
+  public submitted = false;
 
   public flag = true;
   public mostrar: boolean = false;
@@ -22,7 +25,7 @@ export class RegistroPage implements OnInit {
   formularioRegistroPersonal: FormGroup = this.formBuilder.group({
     nombre: ['', Validators.required],
     apellido: ['', Validators.required],
-    rut: ['', Validators.required],
+    rut: new FormControl('', [Validators.required]),
     sexoUsuario: ['', Validators.required],
     paisUsuario: ['', Validators.required],
   });
@@ -59,26 +62,28 @@ export class RegistroPage implements OnInit {
 
   continuarPrueba(n: number) {
     if (n === 1) {
-      if (
-        this.formularioRegistroPersonal.value.nombre !== "" &&
-        this.formularioRegistroPersonal.value.apellido !== "" &&
-        this.formularioRegistroPersonal.value.rutValidated !== "" &&
-        this.formularioRegistroPersonal.value.sexoUsuario !== "" &&
-        this.formularioRegistroPersonal.value.paisUsuario !== ""
-      ) {
+        if (
+            this.formularioRegistroPersonal.value.nombre !== "" &&
+            this.formularioRegistroPersonal.value.apellido !== "" &&
+            this.formularioRegistroPersonal.value.rut !== "" &&  // Asegura que el campo RUT no esté vacío
+            this.rutValidated &&  // Verifica que el RUT sea válido
+            this.formularioRegistroPersonal.value.sexoUsuario !== "" &&
+            this.formularioRegistroPersonal.value.paisUsuario !== ""
+        ) {
+            this.status = n;
+            this.flag = true;
+        } else {
+            this.flag = false;
+        }
+    } else {
         this.status = n;
         this.flag = true;
-      } else {
-        this.flag = false;
-      }
-    } else {
-      this.status = n;
-      this.flag = true;
     }
-
+    this.router.navigate(['/registro-detalles']);
 
     console.log("Funciona la función continuarPrueba");
-  }
+}
+
 
 
   mostrarFormularioFoto() {
@@ -110,10 +115,13 @@ export class RegistroPage implements OnInit {
 
   formatRut()
   {
-    this.rutValidated = validate(this.formularioRegistroPersonal.value.rut);
-    let rut = format(this.formularioRegistroPersonal.value.rut);
-    this.formularioRegistroPersonal.patchValue({ rut });
+    this.rutValidated = validate(this.formularioRegistroPersonal.value.rut);  // Actualizado aquí
+    let rut = format(this.formularioRegistroPersonal.value.rut);  // Actualizado aquí
+    this.formularioRegistroPersonal.patchValue({ rut });  // Actualizado aquí
+
+    return this.rutValidated;
   }
+
 
   async openPicker(value: string) {
     const pickerOpts: PickerOptions = {

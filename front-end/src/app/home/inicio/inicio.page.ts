@@ -6,6 +6,10 @@ import { MenuController } from '@ionic/angular';
 import { DocumentData, collection, getFirestore, query, getDocs } from '@firebase/firestore';
 import { filter } from 'rxjs';
 
+import { ProductDetailsComponent } from '../inicio/producto/product-details/product-details.component';
+import { ModalController } from '@ionic/angular';
+
+
 interface PageItem {
   title: string;
   icon: string;
@@ -34,6 +38,7 @@ export class InicioPage implements OnInit {
   db = getFirestore();
 
   constructor(
+    private modalController: ModalController,
     private router: Router,
     private auth: AuthService,
     private menu: MenuController
@@ -93,6 +98,14 @@ export class InicioPage implements OnInit {
     this.menu.close();
   }
 
+
+  async openProductDetails(producto: any) {
+    const modal = await this.modalController.create({
+      component: ProductDetailsComponent,
+      componentProps: { producto: producto }
+    });
+    return await modal.present();
+  }
   
 }
 
