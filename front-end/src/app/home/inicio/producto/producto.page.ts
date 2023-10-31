@@ -10,8 +10,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 })
 export class ProductoPage implements OnInit {
   producto: any;
-  
-  items = ["", ""]; 
+
 
   nombre: string = '';
   imagenes: any[] = [];
@@ -39,19 +38,7 @@ export class ProductoPage implements OnInit {
     });
   }
 
-  private generateItems() {
-    const count = this.items.length + 1;
-    for (let i = 0; i < 50; i++) {
-      this.items.push(`Item ${count + i}`);
-    }
-  }
 
 
-  onIonInfinite(ev: any) {
-    this.generateItems();
-    setTimeout(() => {
-      (ev as InfiniteScrollCustomEvent).target.complete();
-    }, 500);
-  }
 
 }
