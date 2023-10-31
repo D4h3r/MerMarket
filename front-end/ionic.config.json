@@ -1,7 +1,0 @@
-{
-  "name": "MerMarket",
-  "integrations": {
-    "capacitor": {}
-  },
-  "type": "angular"
-}
