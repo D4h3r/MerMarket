@@ -1,0 +1,99 @@
+.header {
+  background-color: #359857;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rectangle {
+  width: 90%;
+  max-width: 1080px;
+  text-align: center;
+  color: white;
+  font-size: 10vw;
+  font-weight: bold;
+}
+
+.mer {
+  color: #8B0000;
+}
+
+.text {
+  color: white;
+}
+
+.backgroundLogin {
+  background-color: #73E098;
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh; /* Asegura que el contenedor tenga al menos la altura de la ventana del navegador */
+  padding: 1rem;
+}
+
+
+
+.fontInicio {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333333;
+}
+
+.custom-button {
+  --background: #d9d9d9;
+  --color: #333333;
+  margin-top: 10px;
+  font-weight: bold;
+
+}
+
+@media (min-width: 768px) {
+  .custom-button {
+    margin-top: 20px;
+  }
+  
+  .field-label {
+    text-align: left;
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 1920px) {
+  .backgroundLogin {
+    padding: 10px;
+  }
+}
+
+.forgot-password {
+  margin-top: 10px;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.forgot-password-link {
+  color: rgb(0, 0, 0);
+}
+
+
+.text-start {
+  text-align: left;
+}
+
+@media (min-width: 768px) {
+  .ion-text-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .ion-align-items-start {
+    align-items: flex-start;
+  }
+  
+  .ion-align-items-end {
+    align-items: flex-end;
+  }
+}
+
+.error-message {
+  color: red;
+}

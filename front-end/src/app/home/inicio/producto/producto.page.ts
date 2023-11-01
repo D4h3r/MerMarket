@@ -1,5 +1,4 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { InfiniteScrollCustomEvent } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 
@@ -12,7 +11,6 @@ export class ProductoPage implements OnInit {
   producto: any;
 
 
-  id: string = "";
   nombre: string = '';
   imagenes: any[] = [];
   precio: number = 0;

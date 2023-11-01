@@ -2,10 +2,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { AngularFirestore } from '@angular/fire/compat/firestore';  // Importa AngularFirestore
-import { map } from 'rxjs/operators';  // Importa el operador map
-import { getFirestore, doc, getDoc } from 'firebase/firestore';
-import * as firebase from 'firebase/compat';
-import { getDatabase, ref, get } from 'firebase/database';
+import { runTransaction, doc, getFirestore } from 'firebase/firestore';
+import { getDatabase, ref, get} from 'firebase/database';
 
 
 
@@ -72,43 +70,34 @@ export class ProductDetailsComponent implements OnInit {
         console.error(error);
     });
 }
+
   
-  comprarProducto() {
-    const productoRef = this.firestore.doc(`productos/${this.producto.id}`);
-    console.log('ID del producto:', this.producto.id);
-    console.log(`productos/${this.producto.id}`);  // Log the full Firestore document path
+comprarProducto() {
+  const db = getFirestore();
+  const productoRef = doc(db, `productos/${this.producto.id}`);
+  
+  console.log('ID del producto:', this.producto.id);
+  console.log(`productos/${this.producto.id}`);  // Log the full Firestore document path
+  
+  runTransaction(db, async (transaction) => {
+    const sfDoc = await transaction.get(productoRef);
+    if (!sfDoc.exists()) {
+      throw "Document does not exist!";
+    }
+    
+    const newStock = sfDoc.data()['stock'] - 1;
+    if (newStock >= 0) {
+      transaction.update(productoRef, { stock: newStock });
+      console.log('Stock actualizado con éxito');
+      console.log('Nuevo stock:', newStock);
 
-
-    const subscription = productoRef.snapshotChanges().pipe(
-      map(action => {
-        // Assuming this is the correct way to get the data, which may not be correct.
-        const data = action.payload.data() as Producto;
-        const id = action.payload.id;
-        console.log('Datos del producto:', data);
-        return { ...data, id };
-      })
-    ).subscribe((doc: Producto) => {
-      const data = doc as Producto;
-      const stockActual = data.stock;
-      console.log('Stock actual:', stockActual);
-
-      if (stockActual > 0) {
-        const nuevoStock = stockActual - 1;
-
-        productoRef.update({ stock: nuevoStock })
-          .then(() => {
-            console.log('Stock actualizado con éxito');
-            subscription.unsubscribe();  // Move the unsubscription here
-          })
-          .catch((error: any) => {
-            console.error('Error al actualizar stock: ', error);
-            subscription.unsubscribe();  // Make sure to unsubscribe in case of error as well
-          });
-      } else {
-        console.log('No hay stock disponible');
-        subscription.unsubscribe();  // Make sure to unsubscribe if no stock
-      }
-    });
-  }
+    } else {
+      console.log('No hay stock disponible');
+    }
+  })
+  .catch((error: any) => {
+    console.error('Error al actualizar stock: ', error);
+  });
+}
 }
   

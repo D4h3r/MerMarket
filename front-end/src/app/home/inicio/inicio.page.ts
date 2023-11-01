@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { InfiniteScrollCustomEvent } from '@ionic/angular';
-import { NavigationEnd, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { MenuController } from '@ionic/angular';
 import { DocumentData, collection, getFirestore, query, getDocs } from '@firebase/firestore';
-import { filter } from 'rxjs';
 
 import { ProductDetailsComponent } from '../inicio/producto/product-details/product-details.component';
 import { ModalController } from '@ionic/angular';
@@ -22,6 +21,7 @@ interface PageItem {
 })
 export class InicioPage implements OnInit {
 
+  items = ["Hola", "putas"];
   productos: any[] = []; 
 
   // Menú de navegación lateral
@@ -47,7 +47,9 @@ export class InicioPage implements OnInit {
   }
 
   ngOnInit() {
+    this.generateItems();
     this.cargarProductos();
+    this.obtenerId();
   }
 
   async cargarProductos(){
@@ -66,6 +68,34 @@ export class InicioPage implements OnInit {
     }
   }
 
+  async obtenerId(){
+    try {
+      const queryCollection = query(collection(this.db, 'productos'));
+      const querySnapshot = await getDocs(queryCollection);
+      const data: any[] = [];
+      
+      querySnapshot.forEach((producto) => {
+        const productoData = producto.data();
+        data.push({
+          id: producto.id,  // Agregando el id del producto
+          ...productoData   // Agregando el resto de los datos del producto
+        });
+      });
+  
+      this.productos = data;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  
+
+  private generateItems() {
+    const count = this.items.length + 1;
+    for (let i = 0; i < 50; i++) {
+      this.items.push(`Item ${count + i}`);
+    }
+  }
 
   llenarInicio(producto: DocumentData) {
     //declaracion de varuables
@@ -85,6 +115,12 @@ export class InicioPage implements OnInit {
   
   
 
+  onIonInfinite(ev: any) {
+    this.generateItems();
+    setTimeout(() => {
+      (ev as InfiniteScrollCustomEvent).target.complete();
+    }, 500);
+  }
 
   // Navega a la página de editar perfil
   goToEditProfile() {
@@ -93,8 +129,8 @@ export class InicioPage implements OnInit {
   }
 
   // Abre una página específica desde el menú desplegable
-  openPage(idProducto: string) {
-    this.router.navigate(['/' + idProducto]);
+  openPage(page: PageItem) {
+    this.router.navigate([`/${page.title.toLowerCase().replace(' ', '-')}`]);
     this.menu.close();
   }
 
