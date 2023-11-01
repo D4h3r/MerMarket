@@ -125,8 +125,8 @@ export class PublicarPage implements OnInit {
         descripcion: this.formularioPublicacion.get('descripcion')?.value,
         categoria: this.formularioPublicacion.get('categoria')?.value,
         estado: this.formularioPublicacion.get('estado')?.value,
-        stock: <number> this.formularioPublicacion.get('stock')?.value
-
+        stock: <number> this.formularioPublicacion.get('stock')?.value,
+        fecha: Date()
       });
     } catch (e) {
       console.error("Error: ", e);
@@ -187,13 +187,21 @@ export class PublicarPage implements OnInit {
 
   getCategoria() {
     this.pickerOpts = [];
-    const comidaOption = {
-      text: 'Comida',
-      value: 'Comida',
-    };
     const construccionOption = {
       text: 'Materiales de construccion',
       value: 'Materiales de construccion',
+    };
+    const envasadosOption = {
+      text: 'Prductos Envasados',
+      value: 'Prductos Envasados',
+    };
+    const frutasyverdurasOption = {
+      text: 'Frutas y Verduras',
+      value: 'Frutas y Verduras',
+    };
+    const mascotasOption = {
+      text: 'Mascotas',
+      value: 'Mascotas',
     };
     const ropaOption = {
       text: 'Ropa',
@@ -207,8 +215,10 @@ export class PublicarPage implements OnInit {
       text: 'Varios',
       value: 'Varios',
     };
-    this.pickerOpts.push(comidaOption);
     this.pickerOpts.push(construccionOption);
+    this.pickerOpts.push(envasadosOption);
+    this.pickerOpts.push(frutasyverdurasOption);
+    this.pickerOpts.push(mascotasOption);
     this.pickerOpts.push(ropaOption);
     this.pickerOpts.push(tecnologiaOption);
     this.pickerOpts.push(variosOption);
