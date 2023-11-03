@@ -63,6 +63,15 @@
           Comprar
         </ion-button>
       </div>
+
+      <!--Comentarios de la publicación-->
+      <div *ngIf="comentarios.length > 0">
+        <h3>Comentarios:</h3>
+        <ul>
+          <li *ngFor="let comentario of comentarios">{{ comentario }}</li>
+        </ul>
+      </div>
+
     </ion-card-content>
   </ion-card>
 </ion-content>

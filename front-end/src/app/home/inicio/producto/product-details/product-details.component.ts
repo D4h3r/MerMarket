@@ -1,6 +1,6 @@
 // src/app/product-details/product-details.component.ts
 import { Component, Input, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { AlertController, ModalController } from '@ionic/angular';
 import { AngularFirestore } from '@angular/fire/compat/firestore';  // Importa AngularFirestore
 import { runTransaction, doc, getFirestore } from 'firebase/firestore';
 import { getDatabase, ref, get} from 'firebase/database';
@@ -30,8 +30,9 @@ export class ProductDetailsComponent implements OnInit {
   @Input() producto: any;
   
   isLiked: boolean = false; // Variable para mantener el estado de "me gusta"
+  comentarios: string[] = [];
 
-  constructor(private modalController: ModalController, private firestore: AngularFirestore) { }
+  constructor(private modalController: ModalController, private firestore: AngularFirestore, private alertController: AlertController) { }
 
   ngOnInit(
 
@@ -44,8 +45,41 @@ export class ProductDetailsComponent implements OnInit {
   toggleLike() {
     this.isLiked = !this.isLiked;
   }
-  commentProduct() {
-    // Lógica para comentar el producto
+
+  comentarProducto(comentario: string) {
+    if (comentario.trim() !== '') {
+      this.comentarios.push(comentario);
+    }
+  }
+
+  async commentProduct() {
+    const alert = await this.alertController.create({
+    header: 'Comentar producto',
+    inputs: [
+      {
+        name: 'comentario',
+        type: 'text',
+        placeholder: 'Escribe tu comentario'
+      }
+    ],
+    buttons: [
+      {
+        text: 'Cancelar',
+        role: 'cancel',
+        handler: () => {
+          console.log('Comentario cancelado');
+        }
+      },
+      {
+        text: 'Comentar',
+        handler: (data) => {
+          this.comentarProducto(data.comentario);
+        }
+      }
+    ]
+  });
+
+  await alert.present();
   }
 
   shareProduct() {
