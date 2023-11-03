@@ -83,7 +83,17 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   shareProduct() {
-    // Lógica para compartir el producto
+    if (navigator.share) {
+      navigator.share({
+        title: 'MerMarket', 
+        text: 'Descripción del producto', 
+        url: 'URL del producto', 
+      })
+        .then(() => console.log('Producto compartido con éxito'))
+        .catch((error) => console.error('Error al compartir el producto:', error));
+    } else {
+      console.log('La función de compartir no está disponible en este navegador.');
+    }
   }
 
   reportProduct() {
