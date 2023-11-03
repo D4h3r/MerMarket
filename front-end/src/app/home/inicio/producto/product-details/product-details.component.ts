@@ -96,9 +96,37 @@ export class ProductDetailsComponent implements OnInit {
     }
   }
 
-  reportProduct() {
-    // Lógica para reportar el producto
+  async reportProduct() {
+    const alert = await this.alertController.create({
+      header: 'Reportar Publicación',
+      inputs: [
+        {
+          name: 'reportReason',
+          type: 'text',
+          placeholder: 'Motivo del reporte'
+        }
+      ],
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: () => {
+            console.log('Reporte cancelado');
+          }
+        },
+        {
+          text: 'Enviar Reporte',
+          handler: (data) => {
+            console.log('Motivo del reporte:', data.reportReason);
+            console.log('ID de la publicación:', this.producto.id); 
+          }
+        }
+      ]
+    });
+  
+    await alert.present();
   }
+  
 
 
   getProductData(productId: string) {
