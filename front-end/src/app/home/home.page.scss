@@ -3,6 +3,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  max-height: 11vw;
 }
 
 .rectangle {
@@ -16,10 +17,12 @@
 
 .mer {
   color: #8B0000;
+  max-height: 110px;
 }
 
 .text {
   color: white;
+  max-height: 110px;
 }
 
 .backgroundLogin {

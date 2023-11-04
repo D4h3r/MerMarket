@@ -1,5 +1,6 @@
 .text {
   color: white;
+  font-size: 10vw;
 }
 
 .field-label {
@@ -24,20 +25,20 @@ img {
 }
 
 
-.rectangle {
-  width: 90%;
-  max-width: 1080px;
-  text-align: center;
-  color: white;
-  font-size: 10vw;
-  font-weight: bold;
-}
-
 .header {
   background-color: #359857;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.rectangle {
+  width: 90%;
+  max-width: 1080px;
+  text-align: center;
+  color: white;
+  max-height: 11vw;
+  font-weight: bold;
 }
 
 @media (min-width: 768px) {

@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { InfiniteScrollCustomEvent } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { MenuController } from '@ionic/angular';
-import { DocumentData, collection, getFirestore, query, getDocs } from '@firebase/firestore';
+import { DocumentData, collection, getFirestore, query, getDocs, where, CollectionReference } from '@firebase/firestore';
 
 import { ProductDetailsComponent } from '../inicio/producto/product-details/product-details.component';
 import { ModalController } from '@ionic/angular';
@@ -21,7 +21,8 @@ interface PageItem {
 })
 export class InicioPage implements OnInit {
 
-  items = ["Hola", "putas"];
+  @Input() busqueda!: string;
+
   productos: any[] = []; 
 
   // Menú de navegación lateral
@@ -47,15 +48,20 @@ export class InicioPage implements OnInit {
   }
 
   ngOnInit() {
-    this.generateItems();
     this.cargarProductos();
     this.obtenerId();
   }
 
   async cargarProductos(){
     try {
-      const queryCollection = query(collection(this.db, 'productos'));
-      const querySnapshot = await getDocs(queryCollection);
+      let coleccion = collection(this.db, 'productos');
+      let query: any = null;
+      if (this.busqueda == ""){
+        query = query(coleccion);
+      } else {
+        query = query(coleccion, where('categoria', '==', this.busqueda ));
+      }
+      const querySnapshot = await getDocs(query);
       const data: any[] = [];
       
       querySnapshot.forEach((producto) => {
@@ -88,14 +94,6 @@ export class InicioPage implements OnInit {
     }
   }
 
-  
-
-  private generateItems() {
-    const count = this.items.length + 1;
-    for (let i = 0; i < 50; i++) {
-      this.items.push(`Item ${count + i}`);
-    }
-  }
 
   llenarInicio(producto: DocumentData) {
     //declaracion de varuables
@@ -114,14 +112,6 @@ export class InicioPage implements OnInit {
 
   
   
-
-  onIonInfinite(ev: any) {
-    this.generateItems();
-    setTimeout(() => {
-      (ev as InfiniteScrollCustomEvent).target.complete();
-    }, 500);
-  }
-
   // Navega a la página de editar perfil
   goToEditProfile() {
     // Puedes cambiar esto a la ruta correcta para tu aplicación

@@ -34,19 +34,7 @@ export class PublicarPage implements OnInit {
     imagenesSeleccionadas: { file: File, url: string }[] = [];
 
     
-    seleccionarImagenes(event: any) {
-      const files: FileList = event.target.files;
-        if (files.length > 0) {
-
-          for (let i = 0; i < files.length; i++) {
-            const file = files.item(i);
-
-            if (file) {
-              this.imagenesSeleccionadas.push({ file, url: URL.createObjectURL(file)});
-            }
-          }
-      }
-    }
+    
 
   errorMessage: { [key: string]: string } = {};
   pickerOpts: {text: string; value: string}[] = [];
@@ -82,6 +70,20 @@ export class PublicarPage implements OnInit {
 
   goToInicio(){
     this.router.navigate(['/home/inicio']);
+  }
+
+  seleccionarImagenes(event: any) {
+    const files: FileList = event.target.files;
+      if (files.length > 0) {
+
+        for (let i = 0; i < files.length; i++) {
+          const file = files.item(i);
+
+          if (file) {
+            this.imagenesSeleccionadas.push({ file, url: URL.createObjectURL(file)});
+          }
+        }
+    }
   }
 
   sacarIDUsuario(){
