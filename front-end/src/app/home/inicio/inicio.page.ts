@@ -94,11 +94,6 @@ export class InicioPage implements OnInit {
     }
   }
 
-
-  llenarInicio(producto: DocumentData) {
-    //declaracion de varuables
-    
-  }
   
   cerrarSesion() {
     this.auth.cerrarSesion()
